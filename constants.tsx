@@ -17,7 +17,7 @@ export const SERVICES: (ServiceCategory & { variant?: "default" | "accent" | "ou
     title: 'Glanzleistung & Hygiene',
     description: 'Vom staubigen Lagerboden bis zur sterilen Praxis. Wir putzen nicht nur, wir werten auf. Mit modernster Technik und Blick fürs Detail.',
     items: ['Industriereinigung', 'Praxis-Hygiene', 'Glas- & Fassade', 'Teppich-Tiefenreinigung'],
-    image: 'https://cdn-icons-png.flaticon.com/512/12105/12105264.png', // 3D Cleaning Bucket
+    image: 'https://cdn-icons-png.flaticon.com/128/994/994928.png', // 3D Cleaning Bucket (Original)
     variant: 'default'
   },
   {
@@ -25,7 +25,7 @@ export const SERVICES: (ServiceCategory & { variant?: "default" | "accent" | "ou
     title: 'Technik & Instandhaltung',
     description: 'Hausmeister 2.0. Wenn es tropft, klemmt oder dunkel bleibt, sind wir schon unterwegs. Präventive Wartung statt teurer Reparaturen.',
     items: ['Wartung & Reparatur', 'Leuchtmittel-Service', 'Möbelmontage', 'Schließanlagen'],
-    image: 'https://cdn-icons-png.flaticon.com/512/4760/4760236.png', // 3D Toolbox (Werkzeugkoffer)
+    image: 'https://cdn-icons-png.flaticon.com/128/2276/2276313.png', // 3D Tools - Wrench & Hammer (Original)
     variant: 'default'
   },
   {
@@ -33,7 +33,7 @@ export const SERVICES: (ServiceCategory & { variant?: "default" | "accent" | "ou
     title: 'Logistik & Anpacken',
     description: 'Wir sind uns für nichts zu schade. Interne Umzüge, Entrümpelung von Kellern oder der Transport von A nach B. Schnell, stark, sauber.',
     items: ['Büroumzüge', 'Entsorgung', 'Transporte', 'Lagerlogistik'],
-    image: 'https://cdn-icons-png.flaticon.com/512/3063/3063822.png', // 3D Delivery Van (Lieferwagen)
+    image: 'https://cdn-icons-png.flaticon.com/128/870/870130.png', // 3D Delivery Truck (Original)
     variant: 'accent' // Highlight this one
   },
   {
@@ -41,7 +41,7 @@ export const SERVICES: (ServiceCategory & { variant?: "default" | "accent" | "ou
     title: 'Aussenanlagen & Grün',
     description: 'Der erste Eindruck zählt. Wir sorgen für geschnittene Hecken, laubfreie Wege und einen repräsentativen Eingangsbereich.',
     items: ['Grünpflege', 'Winterdienst', 'Parkplatzreinigung', 'Graffitientfernung'],
-    image: 'https://cdn-icons-png.flaticon.com/512/9417/9417686.png', // 3D Tree (Baum)
+    image: 'https://cdn-icons-png.flaticon.com/128/489/489969.png', // 3D Plant/Tree (Original)
     variant: 'default'
   }
 ];

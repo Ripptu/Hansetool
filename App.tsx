@@ -65,19 +65,7 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
             </div>
         </motion.div>
         
-        {/* Large Glowing Logo */}
-        <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="mb-8"
-        >
-            <img 
-                src="https://i.postimg.cc/VLVz13zy/nur-logo.png" 
-                alt="Hansetool Logo" 
-                className="w-32 md:w-48 h-auto brightness-0 invert drop-shadow-[0_0_25px_rgba(255,255,255,0.7)]"
-            />
-        </motion.div>
+        {/* Large Logo REMOVED here */}
 
         <motion.h1 
             initial={{ opacity: 0, y: 30 }}

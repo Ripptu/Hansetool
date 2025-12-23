@@ -74,7 +74,11 @@ export const DynamicIsland: React.FC<DynamicIslandProps> = ({ onEmergencyClick }
                  exit={{ opacity: 0, scale: 0.9 }}
                  className="px-6 flex items-center gap-2"
                >
-                  <span className="text-white font-semibold tracking-wide text-sm">Hansetool</span>
+                  <img 
+                    src="https://i.postimg.cc/VLVz13zy/nur-logo.png" 
+                    alt="Hansetool" 
+                    className="h-6 w-auto brightness-0 invert" 
+                  />
                </motion.div>
             )}
           </AnimatePresence>
