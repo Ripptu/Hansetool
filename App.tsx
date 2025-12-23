@@ -1,18 +1,39 @@
-import React, { useRef, useState } from 'react';
-import { Navbar } from './components/Navbar';
+import React, { useRef, useState, useEffect } from 'react';
+import { DynamicIsland } from './components/DynamicIsland';
 import { Footer } from './components/Footer';
 import { Button } from './components/Button';
 import { SERVICES, VALUES, CLIENT_LOGOS } from './constants';
-import { ArrowRight, CheckCircle2, Phone, Mail, MapPin, Sparkles, Wrench, Truck, Anchor, ShieldCheck, Zap, HeartHandshake, ArrowUpRight, ClipboardCheck } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Phone, Mail, MapPin, Sparkles, Wrench, Truck, Anchor, ShieldCheck, Zap, HeartHandshake, ArrowUpRight, ClipboardCheck, Loader2 } from 'lucide-react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { Testimonials } from './components/ui/Testimonials';
 import { ServiceCard } from './components/ui/service-card';
+import { InquiryWizard } from './components/InquiryWizard';
+import { DirectDispatch } from './components/DirectDispatch';
+import { BudgetCalculator } from './components/BudgetCalculator';
+// @ts-ignore
+import Lenis from 'lenis';
 
-const Hero = () => {
+const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
   const { scrollY } = useScroll();
-  // Parallax effect: moves the background image slower than the scroll
   const y = useTransform(scrollY, [0, 1000], [0, 400]);
   const opacity = useTransform(scrollY, [0, 500], [0.6, 0]);
+
+  // Geo-Targeting State
+  const [location, setLocation] = useState<string>("Hamburg");
+  const [isLocating, setIsLocating] = useState(true);
+
+  useEffect(() => {
+    // Simulate Geo-Location lookup for demo purposes
+    // In a real app, use navigator.geolocation + reverse geocoding API
+    const timer = setTimeout(() => {
+        // Randomly pick a Hamburg district to simulate "local" feeling
+        const districts = ["Hamburg-Mitte", "Altona", "Eimsbüttel", "HafenCity", "Hamburg-Nord"];
+        const randomDistrict = districts[Math.floor(Math.random() * districts.length)];
+        setLocation(randomDistrict);
+        setIsLocating(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <section className="relative min-h-screen flex items-end pb-32 overflow-hidden">
@@ -35,14 +56,29 @@ const Hero = () => {
             transition={{ duration: 0.8 }}
             className="flex gap-6 mb-8 items-center flex-wrap"
         >
-            <div className="bg-accent text-black px-3 py-1 rounded text-sm font-bold flex items-center gap-1 uppercase tracking-wider">
-                Hamburg
+            <div className="bg-accent text-black px-3 py-1 rounded text-sm font-bold flex items-center gap-2 uppercase tracking-wider">
+               {isLocating ? <Loader2 className="w-3 h-3 animate-spin" /> : <MapPin className="w-3 h-3" />}
+               <span>Partner für {location}</span>
             </div>
             <div className="bg-dark-lighter border border-gray-border px-4 py-1 rounded-full text-xs font-semibold text-white uppercase tracking-wider">
                 Gewerbe & Industrie
             </div>
         </motion.div>
         
+        {/* Large Glowing Logo */}
+        <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="mb-8"
+        >
+            <img 
+                src="https://i.postimg.cc/VLVz13zy/nur-logo.png" 
+                alt="Hansetool Logo" 
+                className="w-32 md:w-48 h-auto brightness-0 invert drop-shadow-[0_0_25px_rgba(255,255,255,0.7)]"
+            />
+        </motion.div>
+
         <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -58,7 +94,7 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-xl md:text-2xl text-gray-300 max-w-2xl mb-12"
         >
-            Ihr bodenständiger Partner für Reinigung, Hausmeisterservice und Handwerk. Sauber, zuverlässig und ohne leere Versprechen.
+            Ihr bodenständiger Partner für Reinigung, Hausmeisterservice und Handwerk in {location} und Umgebung. Sauber, zuverlässig und ohne leere Versprechen.
         </motion.p>
         
         <motion.div 
@@ -67,7 +103,14 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="flex flex-col sm:flex-row gap-4"
         >
-            <Button text="Angebot anfragen" href="#contact" />
+            {/* Modified Button to trigger Wizard */}
+            <button 
+                onClick={onOpenWizard}
+                className="group relative inline-flex items-center justify-center px-6 py-3 overflow-hidden font-medium text-black transition-all duration-300 bg-white rounded-full hover:bg-white/90 hover:scale-[0.98]"
+            >
+                <span className="mr-2">Angebot anfragen</span>
+                <ArrowRight className="w-4 h-4" />
+            </button>
             <Button text="Unsere Leistungen" variant="text" href="#services" />
         </motion.div>
       </div>
@@ -469,18 +512,83 @@ const ContactTerminal = () => {
 };
 
 function App() {
+  const [isWizardOpen, setIsWizardOpen] = useState(false);
+  const [isEmergencyMode, setIsEmergencyMode] = useState(false);
+  
+  // Smooth Scroll Hook (Lenis) - Only for Web View (Desktop)
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.matchMedia("(min-width: 1024px)").matches) {
+       const lenis = new Lenis({
+         duration: 1.2,
+         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+         direction: 'vertical',
+         gestureDirection: 'vertical',
+         smooth: true,
+         smoothTouch: false,
+         touchMultiplier: 2,
+       });
+
+       function raf(time: number) {
+         lenis.raf(time);
+         requestAnimationFrame(raf);
+       }
+
+       requestAnimationFrame(raf);
+       
+       return () => {
+         lenis.destroy();
+       }
+    }
+  }, []);
+
   return (
-    <div className="bg-dark min-h-screen text-white font-sans selection:bg-accent selection:text-black">
-      <Navbar />
-      <Hero />
+    <div className={`min-h-screen text-white font-sans selection:bg-accent selection:text-black transition-colors duration-500 ${isEmergencyMode ? 'bg-red-950' : 'bg-dark'}`}>
+      <DynamicIsland onEmergencyClick={() => setIsEmergencyMode(!isEmergencyMode)} />
+      
+      {/* Emergency Overlay */}
+      <AnimatePresence>
+        {isEmergencyMode && (
+            <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-[55] bg-red-900/90 backdrop-blur-xl flex flex-col items-center justify-center text-center p-6"
+            >
+                <div className="animate-pulse mb-8">
+                    <div className="w-24 h-24 bg-red-500 rounded-full flex items-center justify-center mx-auto shadow-[0_0_50px_rgba(239,68,68,0.6)]">
+                        <Phone size={48} className="text-white" />
+                    </div>
+                </div>
+                <h2 className="text-5xl md:text-7xl font-bold text-white mb-4">NOTFALL?</h2>
+                <p className="text-2xl text-red-200 mb-12 max-w-xl">
+                    Wir sind 24/7 für Sie erreichbar. Zögern Sie nicht bei Wasserrohrbruch, Stromausfall oder Sturmschäden.
+                </p>
+                <a href="tel:+4915255905935" className="bg-white text-red-600 px-10 py-6 rounded-full text-3xl font-bold hover:scale-105 transition-transform shadow-2xl mb-6">
+                    01525 5905935
+                </a>
+                <button 
+                    onClick={() => setIsEmergencyMode(false)}
+                    className="text-white/60 hover:text-white underline mt-8"
+                >
+                    Modus beenden
+                </button>
+            </motion.div>
+        )}
+      </AnimatePresence>
+
+      <Hero onOpenWizard={() => setIsWizardOpen(true)} />
       <LogoMarquee />
       <IntroSection />
       <ServicesSection />
+      <BudgetCalculator />
       <ValuesSection />
       <ProjectShowcase />
       <Testimonials />
       <ContactTerminal />
       <Footer />
+
+      <DirectDispatch />
+      <InquiryWizard isOpen={isWizardOpen} onClose={() => setIsWizardOpen(false)} />
     </div>
   );
 }
