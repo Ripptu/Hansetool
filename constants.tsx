@@ -15,15 +15,15 @@ export const SERVICES: (ServiceCategory & { variant?: "default" | "accent" | "ou
   {
     id: '1',
     title: 'Glanzleistung & Hygiene',
-    description: 'Vom staubigen Lagerboden bis zur sterilen Praxis. Wir putzen nicht nur, wir werten auf. Mit modernster Technik und Blick fürs Detail.',
-    items: ['Industriereinigung', 'Praxis-Hygiene', 'Glas- & Fassade', 'Teppich-Tiefenreinigung'],
+    description: 'Vom staubigen Lagerboden bis zu glasigen Fenstern. Wir putzen nicht nur, wir werten auf. Mit modernsten Techniken und Blick fürs Detail.',
+    items: ['Industriereinigung', 'Büroreinigung', 'Glas- & Fassade', 'Teppich-Tiefenreinigung'],
     image: 'https://cdn-icons-png.flaticon.com/128/994/994928.png', // 3D Cleaning Bucket (Original)
     variant: 'default'
   },
   {
     id: '2',
     title: 'Technik & Instandhaltung',
-    description: 'Hausmeister 2.0. Wenn es tropft, klemmt oder dunkel bleibt, sind wir schon unterwegs. Präventive Wartung statt teurer Reparaturen.',
+    description: 'Hausmeisterservice 2.0. Wenn es tropft, klemmt oder dunkel bleibt, sind wir schon unterwegs. Präventive Wartung statt teurer Reparaturen.',
     items: ['Wartung & Reparatur', 'Leuchtmittel-Service', 'Möbelmontage', 'Schließanlagen'],
     image: 'https://cdn-icons-png.flaticon.com/128/2276/2276313.png', // 3D Tools - Wrench & Hammer (Original)
     variant: 'default'

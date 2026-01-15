@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,18 +10,19 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
+        darkMode: 'class',
         theme: {
           extend: {
             fontFamily: {
               sans: ['Manrope', 'sans-serif'],
             },
             colors: {
-              dark: '#101010',
-              'dark-lighter': '#1a1a1a',
-              light: '#F3F2F0',
-              accent: '#22C55E', // Green updated
-              'gray-text': '#8A8A8A',
-              'gray-border': 'rgba(248, 248, 248, 0.1)',
+              dark: '#050505',
+              'dark-lighter': '#121212',
+              light: '#ffffff',
+              accent: '#22C55E', 
+              'gray-text': '#A1A1AA',
+              'gray-border': 'rgba(255, 255, 255, 0.1)',
             },
             animation: {
               'scroll': 'scroll 40s linear infinite',
@@ -38,15 +39,15 @@
     </script>
     <style>
       body {
-        background-color: #101010;
-        color: #F3F2F0;
+        background-color: #050505;
+        color: #ffffff;
       }
       /* Custom Scrollbar */
       ::-webkit-scrollbar {
         width: 10px;
       }
       ::-webkit-scrollbar-track {
-        background: #101010;
+        background: #050505;
       }
       ::-webkit-scrollbar-thumb {
         background: #333;
@@ -56,8 +57,15 @@
         background: #555;
       }
       ::selection {
-        background-color: #22C55E; /* Green updated */
-        color: #101010;
+        background-color: #22C55E; 
+        color: #000000;
+      }
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
       }
     </style>
   <script type="importmap">

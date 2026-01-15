@@ -77,7 +77,7 @@ export const DynamicIsland: React.FC<DynamicIslandProps> = ({ onEmergencyClick }
                   <img 
                     src="https://i.postimg.cc/VLVz13zy/nur-logo.png" 
                     alt="Hansetool" 
-                    className="h-6 w-auto brightness-0 invert" 
+                    className="h-10 w-auto brightness-0 invert" 
                   />
                </motion.div>
             )}

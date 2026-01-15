@@ -28,12 +28,6 @@ const testimonials: Testimonial[] = [
     role: "Krüger Immobilienverwaltung",
   },
   {
-    text: "Hygiene ist in unserer Praxis das A und O. Hansetool liefert konstant hohe Qualität und das Personal ist sehr freundlich und diskret.",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=150&h=150",
-    name: "Dr. Anja Peters",
-    role: "Zahnzentrum Alster",
-  },
-  {
     text: "Bodenständig und ehrlich. Ein Mann, ein Wort. Die Jungs packen ordentlich an, wenn es bei uns in der Werkstatt mal wieder chaotisch aussieht.",
     image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=150&h=150",
     name: "Uwe Müller",
@@ -67,7 +61,7 @@ const testimonials: Testimonial[] = [
 
 const firstColumn = testimonials.slice(0, 3);
 const secondColumn = testimonials.slice(3, 6);
-const thirdColumn = testimonials.slice(6, 9);
+const thirdColumn = testimonials.slice(5, 8);
 
 const TestimonialsColumn = (props: {
   className?: string;
