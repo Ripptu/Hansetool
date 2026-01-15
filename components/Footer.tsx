@@ -23,7 +23,7 @@ const Clock: React.FC<{ timeZone: string; label: string }> = ({ timeZone, label 
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-black/60 backdrop-blur-xl pt-24 pb-0 border-t border-gray-border relative overflow-hidden">
+    <footer className="bg-dark pt-24 pb-0 border-t border-gray-border relative overflow-hidden">
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-24">
           <div className="space-y-8">
@@ -68,7 +68,7 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-center py-8 border-t border-gray-border text-xs text-gray-text bg-transparent relative z-10">
+        <div className="flex flex-col md:flex-row justify-between items-center py-8 border-t border-gray-border text-xs text-gray-text bg-dark relative z-10">
             <p>© 2025 Hansetool. Alle Rechte vorbehalten.</p>
             <div className="flex gap-6 mt-4 md:mt-0">
                 <a href="#" className="hover:text-white">Impressum</a>

@@ -13,105 +13,53 @@ import { Navbar } from './components/Navbar';
 // @ts-ignore
 import Lenis from 'lenis';
 
-const GlobalBackground = () => {
-    return (
-        <div className="fixed inset-0 z-[-1] overflow-hidden bg-[#020202] transform-gpu">
-             {/* 
-                High-End Gemini Style Implementation:
-                - Layering multiple colors (Emerald, Teal, Cyan)
-                - Using 'mix-blend-screen' allows the colors to add up to light, creating that "glowing" effect against the black background.
-                - Large blur radius creates the soft, ethereal look.
-             */}
-             
-             {/* 1. Primary Emerald Nebula (Top Left) - The main brand glow */}
-             <motion.div 
-                animate={{ 
-                    scale: [1, 1.15, 1], 
-                    rotate: [0, 5, 0],
-                    x: [0, 20, 0],
-                }}
-                transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-[-20%] left-[-10%] w-[90vw] h-[85vw] bg-emerald-600 rounded-full blur-[140px] opacity-40 mix-blend-screen will-change-transform"
-             ></motion.div>
-             
-             {/* 2. Secondary Teal Aurora (Top Right) - Adds the cool spectrum depth */}
-             <motion.div 
-                animate={{ 
-                    scale: [1, 1.2, 1], 
-                    x: [0, -40, 0],
-                    y: [0, 20, 0]
-                }}
-                transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-[-10%] right-[-15%] w-[80vw] h-[80vw] bg-teal-500 rounded-full blur-[160px] opacity-35 mix-blend-screen will-change-transform"
-             ></motion.div>
-
-             {/* 3. Deep Green Foundation (Bottom) - Grounds the design */}
-             <motion.div 
-                animate={{ 
-                     opacity: [0.2, 0.35, 0.2],
-                     scale: [1, 1.05, 1]
-                }}
-                transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute bottom-[-30%] left-[10%] w-[120vw] h-[90vw] bg-green-800 rounded-full blur-[200px] opacity-30 mix-blend-screen will-change-[opacity,transform]"
-             ></motion.div>
-
-             {/* 4. Wandering Highlight (Center/Top) - Simulates light passing through fog */}
-             <motion.div
-                animate={{
-                    x: [-50, 50, -50],
-                    y: [-20, 20, -20],
-                    opacity: [0.1, 0.3, 0.1]
-                }}
-                transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                className="absolute top-[20%] left-[30%] w-[40vw] h-[40vw] bg-emerald-300 rounded-full blur-[120px] mix-blend-overlay pointer-events-none"
-             ></motion.div>
-
-             {/* Noise Texture for that premium matte finish */}
-             <div className="absolute inset-0 opacity-[0.04] pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}></div>
-        </div>
-    )
-}
-
 const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
   const { scrollY } = useScroll();
   const phoneY = useTransform(scrollY, [0, 800], [0, -100]); 
   const bubbleY = useTransform(scrollY, [0, 800], [0, -200]);
 
   return (
-    <section className="relative min-h-[140vh] flex flex-col items-center pt-32 pb-0 overflow-hidden">
+    <section className="relative min-h-[140vh] flex flex-col items-center pt-32 pb-0 overflow-hidden bg-dark">
       
-      {/* Localized Spotlight for Hero Text - Enhanced */}
-      <div className="absolute top-[15%] left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-emerald-500/10 blur-[100px] pointer-events-none z-0 mix-blend-screen"></div>
-
+      {/* Modern Gemini-Style Green Gradients Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+          {/* Central subtle glow */}
+          <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[1200px] h-[800px] bg-emerald-900/10 rounded-full blur-[120px] opacity-60"></div>
+          
+          {/* Top Left Green Accent */}
+          <div className="absolute top-[10%] left-[15%] w-[500px] h-[500px] bg-accent/5 rounded-full blur-[100px]"></div>
+          
+          {/* Top Right Teal/Green Accent */}
+          <div className="absolute top-[5%] right-[15%] w-[600px] h-[600px] bg-teal-900/20 rounded-full blur-[120px]"></div>
+          
+          {/* Bottom ambient light */}
+          <div className="absolute bottom-[20%] left-[30%] w-[800px] h-[800px] bg-green-950/20 rounded-full blur-[150px]"></div>
+      </div>
+      
       <div className="container mx-auto px-6 relative z-10 flex flex-col items-center text-center">
         
-        {/* Logo */}
+        {/* Logo - Adjusted Size (Smaller than massive, but still hero) */}
         <motion.img 
-            initial={{ opacity: 0, scale: 0.9, y: -10 }}
+            initial={{ opacity: 0, scale: 0.8, y: -20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             src="https://i.postimg.cc/VLVz13zy/nur-logo.png"
             alt="Hansetool Logo"
             className="w-full max-w-[320px] md:max-w-[650px] mb-8 brightness-0 invert drop-shadow-2xl opacity-90 relative z-20"
         />
 
         {/* Headline */}
-        <div className="relative">
-             {/* Text Glow Backing */}
-             <div className="absolute inset-0 bg-emerald-500/5 blur-3xl rounded-full scale-150 pointer-events-none"></div>
-             
-            <motion.h1 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="text-3xl md:text-5xl text-white mb-8 tracking-tight max-w-5xl leading-tight relative z-20 flex flex-wrap justify-center gap-x-3"
-            >
-            <span className="font-serif italic font-semibold tracking-normal text-white">Wir machen das.</span>
-            <span className="font-sans font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-200 via-white to-emerald-200 drop-shadow-[0_0_15px_rgba(34,197,94,0.3)]">
-                Einfach & Sauber.
-            </span>
-            </motion.h1>
-        </div>
+        <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-3xl md:text-5xl text-white mb-8 tracking-tight max-w-5xl leading-tight relative z-20 flex flex-wrap justify-center gap-x-3"
+        >
+          <span className="font-serif italic font-semibold tracking-normal text-white">Wir machen das.</span>
+          <span className="font-sans font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-accent to-emerald-400 shadow-green-500/20 drop-shadow-sm">
+             Einfach & Sauber.
+          </span>
+        </motion.h1>
 
         {/* Subline */}
         <motion.p 
@@ -124,7 +72,7 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
             Laden Sie die App oder buchen Sie direkt online.
         </motion.p>
 
-        {/* Buttons */}
+        {/* Buttons (Dark Mode Style) */}
         <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -133,7 +81,7 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
         >
             <button 
                 onClick={onOpenWizard}
-                className="flex items-center gap-3 bg-white text-black px-8 py-3.5 rounded-full font-bold hover:bg-gray-200 transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:-translate-y-1"
+                className="flex items-center gap-3 bg-white text-black px-8 py-3.5 rounded-full font-bold hover:bg-gray-200 transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:-translate-y-1"
             >
                 <div className="bg-black/10 p-1.5 rounded-full">
                     <Sparkles size={18} className="text-black" />
@@ -147,8 +95,8 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
                 href="https://wa.me/4915255905935"
                 className="flex items-center gap-3 bg-[#1a1a1a] text-white border border-white/10 px-8 py-3.5 rounded-full font-bold hover:bg-[#222] transition-all shadow-md hover:-translate-y-1"
             >
-                <div className="bg-emerald-500/20 p-1.5 rounded-full">
-                    <Phone size={18} className="text-emerald-500" />
+                <div className="bg-green-500/20 p-1.5 rounded-full">
+                    <Phone size={18} className="text-green-500" />
                 </div>
                 <div className="text-left">
                     <div className="text-[10px] font-medium opacity-60 uppercase leading-none mb-0.5">Direct Line</div>
@@ -157,52 +105,168 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
             </a>
         </motion.div>
 
-        {/* PHONE WRAPPER */}
+        {/* PHONE & CONNECTIONS WRAPPER */}
         <div className="relative w-full max-w-5xl h-[800px] z-10">
             
-            {/* Simple Background Lines (Static for performance) */}
+            {/* SVG Lines - Background Layer (Darker Lines) */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible" viewBox="0 0 1000 800">
-                <path d="M500 200 C 400 200, 300 200, 200 150" fill="none" stroke="#333" strokeWidth="1" strokeDasharray="4 4" />
-                <path d="M500 200 C 600 200, 700 200, 800 150" fill="none" stroke="#333" strokeWidth="1" strokeDasharray="4 4" />
-                <path d="M450 500 C 350 500, 250 500, 180 550" fill="none" stroke="#333" strokeWidth="1" strokeDasharray="4 4" />
-                <path d="M550 500 C 650 500, 750 500, 820 550" fill="none" stroke="#333" strokeWidth="1" strokeDasharray="4 4" />
+                <defs>
+                    <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#333" stopOpacity="0" />
+                        <stop offset="50%" stopColor="#444" stopOpacity="1" />
+                        <stop offset="100%" stopColor="#333" stopOpacity="0" />
+                    </linearGradient>
+                </defs>
+                
+                {/* Top Left Line */}
+                <motion.path 
+                    d="M500 200 C 400 200, 300 200, 200 150" 
+                    fill="none" 
+                    stroke="#333" 
+                    strokeWidth="1.5"
+                    strokeDasharray="4 4"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 1 }}
+                    transition={{ duration: 1.5, delay: 0.5 }}
+                />
+                <circle cx="200" cy="150" r="4" fill="#333" />
+
+                {/* Top Right Line */}
+                <motion.path 
+                    d="M500 200 C 600 200, 700 200, 800 150" 
+                    fill="none" 
+                    stroke="#333" 
+                    strokeWidth="1.5"
+                    strokeDasharray="4 4"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 1 }}
+                    transition={{ duration: 1.5, delay: 0.5 }}
+                />
+                <circle cx="800" cy="150" r="4" fill="#333" />
+
+                {/* Bottom Left Line */}
+                <motion.path 
+                    d="M450 500 C 350 500, 250 500, 180 550" 
+                    fill="none" 
+                    stroke="#333" 
+                    strokeWidth="1.5"
+                    strokeDasharray="4 4"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 1 }}
+                    transition={{ duration: 1.5, delay: 0.7 }}
+                />
+                 <circle cx="180" cy="550" r="4" fill="#333" />
+
+                {/* Bottom Right Line */}
+                <motion.path 
+                    d="M550 500 C 650 500, 750 500, 820 550" 
+                    fill="none" 
+                    stroke="#333" 
+                    strokeWidth="1.5"
+                    strokeDasharray="4 4"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 1 }}
+                    transition={{ duration: 1.5, delay: 0.7 }}
+                />
+                <circle cx="820" cy="550" r="4" fill="#333" />
             </svg>
 
-            {/* Floating Bubbles */}
-            <motion.div style={{ y: bubbleY }} className="absolute left-[10%] top-[5%] md:left-[15%] md:top-[12%] z-20">
-                <div className="w-16 h-16 rounded-full p-1 bg-[#1a1a1a] border border-white/10 shadow-2xl">
-                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200&h=200&auto=format&fit=crop" className="w-full h-full rounded-full object-cover opacity-90" alt="Customer" />
+            {/* FLOATING BUBBLES (Dark Mode) */}
+            
+            {/* Bubble 1: Top Left (Woman / Customer) */}
+            <motion.div 
+                style={{ y: bubbleY }}
+                className="absolute left-[10%] top-[5%] md:left-[15%] md:top-[12%] z-20"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.8, type: "spring" }}
+            >
+                <div className="relative group cursor-pointer">
+                    <div className="w-16 h-16 rounded-full p-1 bg-[#1a1a1a] border border-white/10 shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200&h=200&auto=format&fit=crop" className="w-full h-full rounded-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" alt="Customer" />
+                    </div>
                 </div>
             </motion.div>
 
-             <motion.div style={{ y: bubbleY }} className="absolute right-[10%] top-[5%] md:right-[15%] md:top-[12%] z-20">
-                <div className="relative">
+             {/* Bubble 2: Top Right (Man / Worker) */}
+             <motion.div 
+                style={{ y: bubbleY }}
+                className="absolute right-[10%] top-[5%] md:right-[15%] md:top-[12%] z-20"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.9, type: "spring" }}
+            >
+                <div className="relative group cursor-pointer">
                     <div className="w-16 h-16 rounded-full p-1 bg-[#1a1a1a] border border-white/10 shadow-2xl">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&h=200&auto=format&fit=crop" className="w-full h-full rounded-full object-cover opacity-90" alt="Worker" />
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&h=200&auto=format&fit=crop" className="w-full h-full rounded-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" alt="Worker" />
                     </div>
-                    <div className="absolute -bottom-2 -right-2 bg-accent text-black p-1 rounded-full shadow-lg">
+                    <div className="absolute -bottom-2 -right-2 bg-accent text-black p-1 rounded-full shadow-lg shadow-accent/20">
                         <CheckCircle2 size={12} />
                     </div>
                 </div>
             </motion.div>
 
-            {/* Phone Mockup */}
+            {/* Bubble 3: Bottom Left (Cleaning Icon) */}
             <motion.div 
-                initial={{ y: 50, opacity: 0 }}
+                style={{ y: bubbleY }}
+                className="absolute left-[5%] bottom-[30%] md:left-[12%] md:bottom-[25%] z-20"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 1.0, type: "spring" }}
+            >
+                 <div className="w-14 h-14 rounded-full bg-[#1a1a1a] border border-white/10 shadow-2xl flex items-center justify-center">
+                     <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center">
+                        <Sparkles size={20} className="text-blue-400" />
+                     </div>
+                 </div>
+            </motion.div>
+
+            {/* Bubble 4: Bottom Right (Product/Tool) */}
+            <motion.div 
+                style={{ y: bubbleY }}
+                className="absolute right-[5%] bottom-[30%] md:right-[12%] md:bottom-[25%] z-20"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 1.1, type: "spring" }}
+            >
+                 <div className="w-14 h-14 rounded-full bg-[#1a1a1a] border border-white/10 shadow-2xl flex items-center justify-center">
+                    <img src="https://cdn-icons-png.flaticon.com/128/994/994928.png" className="w-8 h-8 object-contain opacity-80" alt="Tool" />
+                 </div>
+            </motion.div>
+
+
+            {/* REALISTIC IPHONE 15/16 PRO MOCKUP */}
+            <motion.div 
+                initial={{ y: 100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
+                transition={{ duration: 1, delay: 0.4, type: "spring", stiffness: 50 }}
                 style={{ y: phoneY }}
                 className="absolute left-1/2 top-0 -translate-x-1/2 z-30"
             >
                 <div className="relative w-[310px] h-[640px] border-[8px] border-[#2b2b2b] rounded-[55px] bg-[#000] shadow-2xl ring-1 ring-white/10">
+                    
+                    {/* BUTTONS (Left Side) */}
+                    <div className="absolute top-28 -left-[9px] w-[4px] h-8 bg-[#2b2b2b] rounded-l-md shadow-sm"></div> {/* Action Button */}
+                    <div className="absolute top-40 -left-[9px] w-[4px] h-14 bg-[#2b2b2b] rounded-l-md shadow-sm"></div> {/* Volume Up */}
+                    <div className="absolute top-56 -left-[9px] w-[4px] h-14 bg-[#2b2b2b] rounded-l-md shadow-sm"></div> {/* Volume Down */}
+                    
+                    {/* BUTTONS (Right Side) */}
+                    <div className="absolute top-44 -right-[9px] w-[4px] h-20 bg-[#2b2b2b] rounded-r-md shadow-sm"></div> {/* Power */}
+
+                    {/* SCREEN (With uniform bezel) */}
                     <div className="w-full h-full bg-black rounded-[46px] overflow-hidden relative border border-white/5">
-                         {/* Dynamic Island */}
+                        
+                         {/* DYNAMIC ISLAND (Floating Pill) */}
                          <div className="absolute top-2 left-1/2 -translate-x-1/2 w-[100px] h-[30px] bg-black rounded-full z-50 flex items-center justify-center pointer-events-none">
+                            {/* Inner camera/sensor visuals */}
                             <div className="absolute right-3 w-3 h-3 bg-[#111] rounded-full"></div>
+                            <div className="absolute right-3 w-1 h-1 bg-blue-900/30 rounded-full blur-[1px]"></div>
                          </div>
                         
-                        {/* App Content */}
+                        {/* APP CONTENT */}
                         <div className="w-full h-full bg-[#000000] flex flex-col relative overflow-hidden font-sans select-none text-white">
+
+                            {/* Status Bar */}
                             <div className="flex justify-between items-center px-6 pt-3.5 pb-2">
                                 <span className="text-white text-[12px] font-semibold pl-2">9:41</span>
                                 <div className="flex gap-1.5 items-center pr-2 text-white">
@@ -211,7 +275,11 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
                                     <Battery size={16} />
                                 </div>
                             </div>
+
+                            {/* Main Scrollable Content */}
                             <div className="px-5 pt-4 pb-6 flex-1 flex flex-col overflow-y-auto no-scrollbar">
+                                
+                                {/* Header */}
                                 <div className="flex justify-between items-center mb-6">
                                     <div>
                                         <div className="text-[10px] text-gray-400 font-semibold uppercase tracking-wide">Hamburg</div>
@@ -222,6 +290,8 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
                                         <div className="absolute top-2.5 right-2.5 w-1.5 h-1.5 bg-accent rounded-full"></div>
                                     </div>
                                 </div>
+
+                                {/* Search (Interactive Trigger) */}
                                 <div 
                                     onClick={onOpenWizard}
                                     className="bg-[#1a1a1a] border border-white/5 rounded-2xl p-3 flex items-center gap-3 mb-6 cursor-pointer active:scale-95 transition-transform hover:bg-[#222]"
@@ -229,25 +299,41 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
                                     <Search size={18} className="text-gray-500" />
                                     <span className="text-gray-500 text-sm">Was muss erledigt werden?</span>
                                 </div>
+
+                                {/* Categories / Tags */}
                                 <div className="flex gap-2 overflow-x-hidden mb-6 no-scrollbar pb-1">
                                     <div className="bg-white text-black px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap">Alle</div>
                                     <div className="bg-[#1a1a1a] border border-white/10 text-gray-300 px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap">Reinigung</div>
                                     <div className="bg-[#1a1a1a] border border-white/10 text-gray-300 px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap">Technik</div>
                                 </div>
+
+                                {/* Featured Card (Dark Glass) */}
                                 <div className="relative mb-6">
                                     <div className="bg-[#111] rounded-[2rem] p-6 h-[240px] flex flex-col items-center justify-center relative overflow-hidden group border border-white/10">
                                         <div className="absolute top-4 right-4 bg-white/10 backdrop-blur-sm p-2 rounded-full border border-white/5">
                                             <HeartHandshake size={16} className="text-accent" />
                                         </div>
+                                        
                                         <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=400&auto=format&fit=crop" className="w-28 h-28 object-cover rounded-full shadow-2xl mb-4 z-10 border-4 border-[#1a1a1a] opacity-90" />
+                                        
                                         <div className="text-center z-10">
                                             <h3 className="font-bold text-white text-lg mb-0.5">Küchenreinigung</h3>
                                             <p className="text-gray-400 text-xs mb-2">Gewerbe & Privat</p>
                                             <div className="text-black font-extrabold text-sm bg-accent px-3 py-1 rounded-full">ab 49€</div>
                                         </div>
+
+                                        {/* Floating Elements in card */}
                                         <div className="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-accent/10 to-transparent pointer-events-none"></div>
                                     </div>
                                 </div>
+
+                                {/* Mini List Heading */}
+                                <div className="flex justify-between items-end mb-3 px-1">
+                                    <span className="font-bold text-white text-sm">Beliebt</span>
+                                    <span className="text-accent text-xs font-bold">Alle ansehen</span>
+                                </div>
+
+                                {/* Mini List */}
                                 <div className="space-y-3">
                                     <div className="flex items-center gap-3 bg-[#111] p-3 rounded-2xl border border-white/5">
                                         <div className="w-10 h-10 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400 shrink-0">
@@ -255,8 +341,11 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
                                         </div>
                                         <div className="flex-1">
                                             <div className="font-bold text-white text-sm">Reparatur</div>
+                                            <div className="text-gray-500 text-[10px]">Sanitär & Elektro</div>
                                         </div>
-                                        <ArrowUpRight size={14} className="text-gray-400" />
+                                        <div className="w-8 h-8 rounded-full bg-[#1a1a1a] flex items-center justify-center">
+                                            <ArrowUpRight size={14} className="text-gray-400" />
+                                        </div>
                                     </div>
                                     <div className="flex items-center gap-3 bg-[#111] p-3 rounded-2xl border border-white/5">
                                         <div className="w-10 h-10 bg-orange-500/10 rounded-xl flex items-center justify-center text-orange-400 shrink-0">
@@ -264,22 +353,39 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
                                         </div>
                                         <div className="flex-1">
                                             <div className="font-bold text-white text-sm">Transport</div>
+                                            <div className="text-gray-500 text-[10px]">Innerhalb Hamburg</div>
                                         </div>
-                                        <ArrowUpRight size={14} className="text-gray-400" />
+                                        <div className="w-8 h-8 rounded-full bg-[#1a1a1a] flex items-center justify-center">
+                                            <ArrowUpRight size={14} className="text-gray-400" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+                             {/* Bottom Bar */}
                              <div className="bg-[#050505]/80 backdrop-blur-md border-t border-white/5 pt-3 pb-6 px-8 flex justify-between items-center z-40">
-                                 <Menu size={22} className="text-white" />
-                                 <Search size={22} className="text-gray-500" />
-                                 <User size={22} className="text-gray-500" />
+                                 <div className="flex flex-col items-center gap-1">
+                                     <div className="text-white"><Menu size={22} strokeWidth={2.5} /></div>
+                                 </div>
+                                 <div className="text-gray-500 hover:text-white transition-colors"><Search size={22} /></div>
+                                 <div className="text-gray-500 hover:text-white transition-colors"><User size={22} /></div>
                              </div>
+
+                             {/* Home Indicator */}
                              <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/40 rounded-full z-50"></div>
                         </div>
+                        
+                        {/* Screen Reflection */}
+                        <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-transparent opacity-10 pointer-events-none z-40 rounded-[46px]"></div>
                     </div>
                 </div>
+                
+                {/* Shadow underneath phone */}
+                <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-[80%] h-[40px] bg-accent/5 blur-[50px] rounded-full z-[-1]"></div>
             </motion.div>
+
         </div>
+
       </div>
     </section>
   );
@@ -295,15 +401,13 @@ const IntroSection = () => {
   const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
   return (
-    <section id="about" className="py-24 bg-transparent overflow-hidden" ref={ref}>
-      <div className="container mx-auto px-6 relative">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-900/10 blur-[100px] pointer-events-none mix-blend-screen"></div>
-
-        <div className="flex items-center gap-4 mb-16 relative z-10">
+    <section id="about" className="py-24 bg-dark overflow-hidden" ref={ref}>
+      <div className="container mx-auto px-6">
+        <div className="flex items-center gap-4 mb-16">
             <h2 className="text-3xl md:text-5xl font-medium text-white">Kein anonymer Dienstleister. Wir packen an.</h2>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-start relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-start">
             <motion.div style={{ y }} className="relative rounded-2xl overflow-hidden aspect-[4/3] border border-white/5 shadow-2xl">
                 <img 
                   src="https://higgsfield.ai/_next/image?url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_2zg6kRsQgLvpBAc5mmGVtMaqZi0%2Fhf_20260115_170237_e68ce8dc-208d-442d-b08c-415e753434a0.png&w=1080&q=75" 
@@ -330,6 +434,13 @@ const IntroSection = () => {
                             <p className="text-gray-500">Auch für private Haushalte sind wir da. Ob Reparaturen, Entrümpelungen oder Pflegearbeiten – schnell und unkompliziert.</p>
                         </div>
                     </div>
+                    <div className="flex items-start gap-3">
+                        <CheckCircle2 className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
+                        <div>
+                            <h4 className="text-white font-bold">Macher-Mentalität</h4>
+                            <p className="text-gray-500">Keine komplizierten Abläufe. Wir kommen, arbeiten und gehen erst, wenn es fertig ist.</p>
+                        </div>
+                    </div>
                 </div>
                 <div className="pt-8">
                     <Button text="Kontaktieren Sie uns" variant="text" href="#contact" className="text-white" />
@@ -341,33 +452,40 @@ const IntroSection = () => {
   );
 };
 
-// Services Section
+// Completely redesigned "Professional" Services Section
 const ServicesSection = () => {
+    
+  // Mapping icons to service IDs to replace the childish 3D images
   const icons: Record<string, any> = {
     '1': Sparkles,
     '2': Wrench,
-    '3': Box,
+    '3': Box, // Logistics
     '4': Leaf
   };
 
   return (
-    <section id="services" className="py-32 bg-transparent relative">
-        <div className="container mx-auto px-6 relative z-10">
-            <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-white/10 pb-8 relative">
-                <div className="absolute top-0 left-0 w-[300px] h-[100px] bg-emerald-500/10 blur-[80px] pointer-events-none mix-blend-screen"></div>
-                <div className="max-w-2xl relative z-10">
+    <section id="services" className="py-32 bg-[#050505]">
+        <div className="container mx-auto px-6">
+            <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-white/10 pb-8">
+                <div className="max-w-2xl">
                     <span className="text-accent font-bold uppercase tracking-widest mb-3 block text-sm">Unser Portfolio</span>
                     <h2 className="text-4xl md:text-5xl font-medium text-white tracking-tight">Dienstleistungen für Profis.</h2>
                 </div>
+                <div className="hidden md:block">
+                     <p className="text-gray-500 text-sm max-w-xs text-right">
+                         Umfassendes Facility Management für Gewerbe und Immobilien in Hamburg.
+                     </p>
+                </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-l border-t border-white/10 bg-[#000]/40 backdrop-blur-sm">
+            {/* Professional Grid Layout - No Gaps, just borders */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-l border-t border-white/10">
                 {SERVICES.map((service, index) => {
                    const IconComponent = icons[service.id] || Layers;
                    return (
                     <div 
                         key={service.id} 
-                        className="group relative p-10 border-r border-b border-white/10 hover:bg-[#0A0A0A]/60 transition-colors duration-500 min-h-[400px] flex flex-col justify-between"
+                        className="group relative p-10 border-r border-b border-white/10 hover:bg-[#0A0A0A] transition-colors duration-500 min-h-[400px] flex flex-col justify-between"
                     >
                         <div>
                             <div className="flex justify-between items-start mb-8">
@@ -376,8 +494,23 @@ const ServicesSection = () => {
                                 </div>
                                 <span className="text-gray-700 font-mono text-sm">0{index + 1}</span>
                             </div>
+                            
                             <h3 className="text-xl font-bold text-white mb-4 group-hover:translate-x-1 transition-transform duration-300">{service.title}</h3>
-                            <p className="text-gray-500 text-sm leading-relaxed mb-8">{service.description}</p>
+                            <p className="text-gray-500 text-sm leading-relaxed mb-8">
+                                {service.description}
+                            </p>
+                        </div>
+
+                        <div>
+                            <div className="w-8 h-[1px] bg-white/10 mb-6 group-hover:w-full group-hover:bg-accent/30 transition-all duration-500"></div>
+                            <ul className="space-y-3">
+                                {service.items.slice(0, 4).map((item, idx) => (
+                                    <li key={idx} className="flex items-center gap-3 text-sm text-gray-400 group-hover:text-gray-300 transition-colors">
+                                        <div className="w-1 h-1 rounded-full bg-accent/50"></div>
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                     </div>
                    );
@@ -393,21 +526,24 @@ const ValuesSection = () => {
   const y = useTransform(scrollYProgress, [0.5, 1], [0, -100]);
 
   return (
-    <section id="values" className="py-24 bg-transparent relative overflow-hidden">
-        <motion.div style={{ y }} className="absolute top-0 right-0 w-full max-w-4xl h-[500px] bg-emerald-500/5 blur-[120px] rounded-full pointer-events-none"></motion.div>
+    <section id="values" className="py-24 bg-dark relative overflow-hidden">
+        {/* Parallax Background decorative elements */}
+        <motion.div style={{ y }} className="absolute top-0 right-0 w-full max-w-4xl h-[500px] bg-accent/5 blur-[120px] rounded-full pointer-events-none"></motion.div>
 
         <div className="container mx-auto px-6 relative z-10">
-            <div className="mb-20 relative">
-                <div className="absolute top-0 left-0 w-[400px] h-[200px] bg-teal-500/10 blur-[100px] pointer-events-none mix-blend-screen"></div>
-                <span className="text-accent font-bold uppercase tracking-widest mb-2 block relative z-10">Die DNA</span>
-                <h2 className="text-5xl md:text-7xl font-bold text-white max-w-4xl tracking-tight relative z-10">
+            <div className="mb-20">
+                <span className="text-accent font-bold uppercase tracking-widest mb-2 block">Die DNA</span>
+                <h2 className="text-5xl md:text-7xl font-bold text-white max-w-4xl tracking-tight">
                     Keine Floskeln.<br/>
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-emerald-400">Echtes Handwerk.</span>
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-emerald-600">Echtes Handwerk.</span>
                 </h2>
             </div>
 
+            {/* Bento Grid Layout for Values */}
             <div className="grid grid-cols-1 md:grid-cols-6 gap-6 auto-rows-[minmax(200px,auto)]">
-                <div className="md:col-span-4 bg-[#111]/80 backdrop-blur-sm border border-white/5 rounded-3xl p-10 flex flex-col justify-between hover:border-accent/30 transition-colors group">
+                
+                {/* Card 1: Main Feature - Large */}
+                <div className="md:col-span-4 bg-[#111] border border-white/5 rounded-3xl p-10 flex flex-col justify-between hover:border-accent/30 transition-colors group">
                     <div className="flex justify-between items-start">
                         <div className="bg-[#1a1a1a] p-4 rounded-2xl text-accent shadow-sm">
                             <HeartHandshake size={40} />
@@ -421,6 +557,8 @@ const ValuesSection = () => {
                         </p>
                     </div>
                 </div>
+
+                {/* Card 2: Vertical Highlight */}
                 <div className="md:col-span-2 md:row-span-2 bg-accent rounded-3xl p-10 flex flex-col justify-between text-black relative overflow-hidden group shadow-lg">
                      <div className="absolute top-0 right-0 w-64 h-64 bg-white/20 rounded-full blur-3xl -mr-32 -mt-32"></div>
                      <div className="bg-black/10 p-4 rounded-2xl w-fit">
@@ -428,23 +566,37 @@ const ValuesSection = () => {
                      </div>
                      <div className="relative z-10">
                         <h3 className="text-4xl font-bold mb-4 leading-tight">24/7 Kopf bei der Sache.</h3>
+                        <p className="font-medium text-black/80">
+                            Suchen Sie etwas Spezielles? Wir machen es möglich – kontaktieren Sie uns einfach für eine individuelle Anfrage.
+                        </p>
                      </div>
                      <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
                         <ArrowRight size={32} />
                      </div>
                 </div>
-                <div className="md:col-span-2 bg-[#111]/80 backdrop-blur-sm border border-white/5 rounded-3xl p-8 hover:bg-[#1a1a1a] transition-colors group">
+
+                {/* Card 3: Hamburg specific */}
+                <div className="md:col-span-2 bg-[#111] border border-white/5 rounded-3xl p-8 hover:bg-[#1a1a1a] transition-colors group">
                     <div className="flex items-center gap-4 mb-6">
                         <Anchor className="text-gray-600 group-hover:text-accent transition-colors" size={32} />
                         <h3 className="text-xl font-bold text-white">100% Hamburg</h3>
                     </div>
+                    <p className="text-gray-400">
+                        Wir kennen die Stadt, den Verkehr und die Mentalität. Kurze Wege, schnelle Reaktionszeiten.
+                    </p>
                 </div>
-                <div className="md:col-span-2 bg-[#111]/80 backdrop-blur-sm border border-white/5 rounded-3xl p-8 hover:bg-[#1a1a1a] transition-colors group">
+
+                {/* Card 4: Quality */}
+                <div className="md:col-span-2 bg-[#111] border border-white/5 rounded-3xl p-8 hover:bg-[#1a1a1a] transition-colors group">
                     <div className="flex items-center gap-4 mb-6">
                         <ShieldCheck className="text-gray-600 group-hover:text-accent transition-colors" size={32} />
                         <h3 className="text-xl font-bold text-white">Kein Pfusch</h3>
                     </div>
+                    <p className="text-gray-400">
+                        Wir machen es einmal – und zwar richtig. Nachbesserungen kosten Zeit und Nerven. Die sparen wir uns.
+                    </p>
                 </div>
+
             </div>
         </div>
     </section>
@@ -452,6 +604,7 @@ const ValuesSection = () => {
 };
 
 const ProjectShowcase = () => {
+    // Unique data for projects
     const projects = [
         {
             id: 'p1',
@@ -476,21 +629,31 @@ const ProjectShowcase = () => {
             desc: 'Wartung der Förderanlagen und Hallenreinigung im laufenden Betrieb.',
             image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600&auto=format&fit=crop',
             tag: 'INDUSTRIE'
-        }
+        },
+        // Removed Medical Project p4 as requested
     ];
 
     return (
-        <section className="py-32 bg-transparent border-t border-white/5 relative overflow-hidden text-white">
+        <section className="py-32 bg-[#050505] border-t border-white/5 relative overflow-hidden text-white">
+            {/* Background Texture */}
             <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
+
             <div className="container mx-auto px-6 relative z-10">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-20 relative">
-                    <div className="absolute top-[-20%] left-[-10%] w-[400px] h-[200px] bg-emerald-700/10 blur-[100px] pointer-events-none mix-blend-screen"></div>
-                    <div className="relative z-10">
+                <div className="flex flex-col md:flex-row justify-between items-end mb-20">
+                    <div>
                         <div className="flex items-center gap-2 mb-4">
                             <span className="h-[1px] w-8 bg-accent"></span>
                             <span className="text-accent font-bold uppercase tracking-widest text-sm">Einsatzbericht</span>
                         </div>
-                        <h2 className="text-5xl md:text-6xl font-bold text-white leading-tight">Tatort<br /> Hamburg.</h2>
+                        <h2 className="text-5xl md:text-6xl font-bold text-white leading-tight">
+                            Tatort<br /> Hamburg.
+                        </h2>
+                    </div>
+                    <div className="hidden md:block">
+                        <div className="bg-white/5 px-6 py-3 rounded-full border border-white/10 flex items-center gap-3">
+                            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                            <span className="text-gray-400 font-mono text-sm">LIVE STATUS: IM EINSATZ</span>
+                        </div>
                     </div>
                 </div>
 
@@ -504,21 +667,46 @@ const ProjectShowcase = () => {
                             transition={{ delay: idx * 0.1 }}
                             className="group relative h-[450px] rounded-xl overflow-hidden cursor-pointer border border-white/5"
                         >
-                            <img src={project.image} alt={project.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 filter grayscale group-hover:grayscale-0" />
+                            {/* Background Image */}
+                            <img 
+                                src={project.image} 
+                                alt={project.title} 
+                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 filter grayscale group-hover:grayscale-0"
+                            />
+                            
+                            {/* Dark Overlay */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90 group-hover:opacity-60 transition-opacity duration-500"></div>
+                            
+                            {/* Content */}
                             <div className="absolute inset-0 p-6 flex flex-col justify-between">
                                 <div className="flex justify-between items-start">
-                                    <span className="bg-accent/90 text-black text-xs font-bold px-2 py-1 rounded backdrop-blur-sm">{project.tag}</span>
+                                    <span className="bg-accent/90 text-black text-xs font-bold px-2 py-1 rounded backdrop-blur-sm">
+                                        {project.tag}
+                                    </span>
                                     <span className="text-white/30 font-mono text-xl font-bold">0{idx + 1}</span>
                                 </div>
+                                
                                 <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                    <div className="h-[1px] w-12 bg-accent mb-4 origin-left transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 delay-100"></div>
                                     <p className="text-accent text-xs font-bold tracking-widest mb-1 uppercase font-mono">{project.location}</p>
                                     <h3 className="text-2xl font-bold text-white mb-2 leading-tight">{project.title}</h3>
+                                    <p className="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 leading-relaxed">
+                                        {project.desc}
+                                    </p>
                                 </div>
                             </div>
+
+                            {/* Hover Border Effect */}
                             <div className="absolute inset-0 border-2 border-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
                         </motion.div>
                     ))}
+                </div>
+                
+                <div className="mt-12 text-center md:text-right">
+                    <a href="#contact" className="inline-flex items-center gap-2 text-white hover:text-accent transition-colors font-medium group">
+                        <span>Alle Referenzen ansehen</span>
+                        <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    </a>
                 </div>
             </div>
         </section>
@@ -527,14 +715,33 @@ const ProjectShowcase = () => {
 
 const ContactTerminal = () => {
     return (
-        <section id="contact" className="py-24 bg-transparent relative overflow-hidden border-t border-white/5">
+        <section id="contact" className="py-24 bg-dark relative overflow-hidden border-t border-white/5">
+            {/* Background Tech Elements */}
+            <div className="absolute top-0 right-0 p-12 opacity-10 pointer-events-none">
+                <div className="grid grid-cols-3 gap-2">
+                    {[...Array(9)].map((_, i) => (
+                        <div key={i} className={`w-2 h-2 rounded-full ${i % 2 === 0 ? 'bg-accent' : 'bg-white/20'}`}></div>
+                    ))}
+                </div>
+            </div>
+
             <div className="container mx-auto px-6 relative z-10">
-                <div className="bg-[#111] rounded-3xl overflow-hidden border border-white/5 shadow-xl relative">
-                    <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-emerald-600/10 blur-[120px] pointer-events-none"></div>
-                    <div className="grid lg:grid-cols-5 min-h-[500px] relative z-10">
+                <div className="bg-[#111] rounded-3xl overflow-hidden border border-white/5 shadow-xl">
+                    <div className="grid lg:grid-cols-5 min-h-[500px]">
+                        
+                        {/* Left Side: The "Dispatcher" - Action Oriented */}
                         <div className="lg:col-span-3 p-10 md:p-16 flex flex-col justify-center relative">
+                            {/* Decorative Grid Line */}
                             <div className="absolute left-0 top-10 h-px w-20 bg-accent"></div>
-                            <h2 className="text-5xl md:text-6xl font-bold text-white mb-8 leading-none">Genug gesehen?<br /><span className="text-accent">Starten wir.</span></h2>
+                            
+                            <h2 className="text-5xl md:text-6xl font-bold text-white mb-8 leading-none">
+                                Genug gesehen?<br />
+                                <span className="text-accent">Starten wir.</span>
+                            </h2>
+                            <p className="text-xl text-gray-400 mb-12 max-w-lg">
+                                Keine Warteschleifen. Keine Formulare. Melden Sie sich direkt beim Dispatch. Wir sind bereit.
+                            </p>
+
                             <div className="flex flex-col sm:flex-row gap-6">
                                 <a href="tel:+4940123456" className="group relative flex items-center justify-between bg-accent hover:bg-accent/90 text-black px-8 py-6 rounded-xl transition-all duration-300 hover:scale-[1.02] min-w-[240px] shadow-lg">
                                     <div className="flex flex-col items-start">
@@ -543,6 +750,7 @@ const ContactTerminal = () => {
                                     </div>
                                     <Phone className="w-8 h-8 group-hover:rotate-12 transition-transform" />
                                 </a>
+
                                 <a href="mailto:info@hansetool.de" className="group relative flex items-center justify-between bg-white/5 hover:bg-white/10 border border-white/10 text-white px-8 py-6 rounded-xl transition-all duration-300 hover:scale-[1.02] min-w-[240px] shadow-sm">
                                     <div className="flex flex-col items-start">
                                         <span className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">Schriftlich</span>
@@ -551,16 +759,39 @@ const ContactTerminal = () => {
                                     <Mail className="w-8 h-8 text-gray-400 group-hover:text-white transition-colors" />
                                 </a>
                             </div>
+
+                            <div className="mt-12 flex items-center gap-4 text-sm text-gray-500 font-mono">
+                                <span className="flex items-center gap-2">
+                                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                    DISPATCH ONLINE
+                                </span>
+                                <span>|</span>
+                                <span>ANTWORTZEIT: &lt; 2 STUNDEN</span>
+                            </div>
                         </div>
+
+                        {/* Right Side: Map / Visual */}
                         <div className="lg:col-span-2 bg-[#1a1a1a] relative overflow-hidden group">
+                             {/* Abstract Map Graphic (CSS) */}
                              <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
-                             <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-30 group-hover:scale-105 transition-transform duration-1000" alt="Hamburg Map Texture" />
+                             
+                             {/* Overlay Map Image */}
+                             <img 
+                                src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&auto=format&fit=crop" 
+                                className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-30 group-hover:scale-105 transition-transform duration-1000"
+                                alt="Hamburg Map Texture"
+                             />
+
                              <div className="absolute inset-0 flex flex-col justify-end p-10 bg-gradient-to-t from-black via-transparent to-transparent">
                                 <div className="border-l-4 border-accent pl-6">
                                     <h3 className="text-white text-2xl font-bold mb-2">Zentrale Hamburg</h3>
+                                    <div className="mt-6 inline-flex items-center gap-2 text-white/90 text-sm font-bold uppercase tracking-wider cursor-pointer hover:text-white transition-colors">
+                                        <MapPin className="w-4 h-4" /> Route berechnen
+                                    </div>
                                 </div>
                              </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -572,18 +803,17 @@ function App() {
   const [isWizardOpen, setIsWizardOpen] = useState(false);
   const [isEmergencyMode, setIsEmergencyMode] = useState(false);
   
-  // Smooth Scroll Hook (Lenis) - Optimized for performance
+  // Smooth Scroll Hook (Lenis) - Only for Web View (Desktop)
   useEffect(() => {
     if (typeof window !== 'undefined' && window.matchMedia("(min-width: 1024px)").matches) {
        const lenis = new Lenis({
-         duration: 0.8, // Slightly faster for snappier feel
+         duration: 1.2,
          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
          direction: 'vertical',
          gestureDirection: 'vertical',
          smooth: true,
          smoothTouch: false,
          touchMultiplier: 2,
-         wheelMultiplier: 1.2, // Faster scrolling
        });
 
        function raf(time: number) {
@@ -599,10 +829,8 @@ function App() {
     }
   }, []);
 
-  // IMPORTANT: Removed 'bg-[#020202]' to allow GlobalBackground to be visible
   return (
-    <div className={`min-h-screen font-sans selection:bg-accent selection:text-black transition-colors duration-500 ${isEmergencyMode ? 'bg-red-950' : 'bg-transparent'}`}>
-      <GlobalBackground />
+    <div className={`min-h-screen font-sans selection:bg-accent selection:text-black transition-colors duration-500 ${isEmergencyMode ? 'bg-red-950' : 'bg-dark'}`}>
       <Navbar />
       
       {/* Emergency Overlay */}
@@ -614,7 +842,15 @@ function App() {
                 exit={{ opacity: 0 }}
                 className="fixed inset-0 z-[100] bg-red-900/90 backdrop-blur-xl flex flex-col items-center justify-center text-center p-6"
             >
+                <div className="animate-pulse mb-8">
+                    <div className="w-24 h-24 bg-red-500 rounded-full flex items-center justify-center mx-auto shadow-2xl">
+                        <Phone size={48} className="text-white" />
+                    </div>
+                </div>
                 <h2 className="text-5xl md:text-7xl font-bold text-white mb-4">NOTFALL?</h2>
+                <p className="text-2xl text-red-200 mb-12 max-w-xl">
+                    Wir sind 24/7 für Sie erreichbar. Zögern Sie nicht bei Wasserrohrbruch, Stromausfall oder Sturmschäden.
+                </p>
                 <a href="tel:+4915255905935" className="bg-white text-red-600 px-10 py-6 rounded-full text-3xl font-bold hover:scale-105 transition-transform shadow-2xl mb-6">
                     01525 5905935
                 </a>
@@ -629,6 +865,7 @@ function App() {
       </AnimatePresence>
 
       <Hero onOpenWizard={() => setIsWizardOpen(true)} />
+      {/* LogoMarquee removed */}
       <IntroSection />
       <ServicesSection />
       <BudgetCalculator />
