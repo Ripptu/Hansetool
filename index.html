@@ -40,8 +40,12 @@
     </script>
     <style>
       body {
-        background-color: #050505;
+        background-color: #020202; /* Match the base dark color */
         color: #ffffff;
+        /* Force hardware acceleration for smoother rendering */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
       }
       /* Custom Scrollbar */
       ::-webkit-scrollbar {
@@ -67,6 +71,13 @@
       .no-scrollbar {
         -ms-overflow-style: none;
         scrollbar-width: none;
+      }
+      
+      /* GPU Acceleration Helper Class */
+      .transform-gpu {
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        perspective: 1000px;
       }
     </style>
   <script type="importmap">

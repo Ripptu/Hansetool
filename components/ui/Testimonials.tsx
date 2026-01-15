@@ -87,7 +87,7 @@ const TestimonialsColumn = (props: {
             {props.testimonials.map(({ text, image, name, role }, i) => (
               <li 
                 key={`${index}-${i}`}
-                className="p-8 rounded-2xl border border-gray-border bg-dark-lighter shadow-lg max-w-xs w-full transition-all duration-300 hover:border-accent/50 group" 
+                className="p-8 rounded-2xl border border-white/10 bg-black/40 backdrop-blur-md shadow-lg max-w-xs w-full transition-all duration-300 hover:border-accent/50 group" 
               >
                 <blockquote className="m-0 p-0">
                   <p className="text-gray-300 leading-relaxed font-normal m-0 text-sm italic">
@@ -122,7 +122,7 @@ const TestimonialsColumn = (props: {
 
 export const Testimonials = () => {
   return (
-    <section className="bg-dark py-24 relative overflow-hidden">
+    <section className="bg-transparent py-24 relative overflow-hidden">
       <div className="container px-6 mx-auto relative z-10">
         <div className="flex flex-col items-center justify-center max-w-2xl mx-auto mb-16 text-center">
             <span className="text-accent font-bold uppercase tracking-widest mb-2 text-sm">Kundenstimmen</span>

@@ -23,7 +23,7 @@ export const BudgetCalculator = () => {
   };
 
   return (
-    <section className="py-24 bg-[#0F0F0F] border-t border-white/5">
+    <section className="py-24 bg-transparent border-t border-white/5 relative">
       <div className="container mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
@@ -33,7 +33,7 @@ export const BudgetCalculator = () => {
               Versteckte Kosten gibt es bei uns nicht. Nutzen Sie unseren Indikator für eine erste grobe Einschätzung. Für ein verbindliches Angebot kommen wir vorbei.
             </p>
             
-            <div className="flex items-start gap-4 p-4 bg-white/5 rounded-xl border border-white/5">
+            <div className="flex items-start gap-4 p-4 bg-white/5 rounded-xl border border-white/5 backdrop-blur-sm">
                 <HelpCircle className="text-accent shrink-0 mt-1" />
                 <p className="text-sm text-gray-500">
                     Dieser Rechner dient nur zur groben Orientierung für Standard-Leistungen. Individuelle Anforderungen (Sicherheitsbereiche, Spezialchemie) werden separat kalkuliert.
@@ -41,8 +41,9 @@ export const BudgetCalculator = () => {
             </div>
           </div>
 
-          <div className="bg-[#151515] p-8 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden">
-             <div className="absolute top-0 right-0 p-32 bg-accent/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+          <div className="bg-black/30 backdrop-blur-xl p-8 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden">
+             {/* Localized glow for the card */}
+             <div className="absolute top-0 right-0 p-32 bg-accent/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
 
              <div className="relative z-10 space-y-8">
                 {/* Service Selector */}
