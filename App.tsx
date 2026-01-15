@@ -21,23 +21,31 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
   return (
     <section className="relative min-h-[140vh] flex flex-col items-center pt-32 pb-0 overflow-hidden bg-dark">
       
-      {/* Dark Gradient Background Mesh */}
-      <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
-          <div className="absolute top-[-10%] left-[20%] w-[500px] h-[500px] bg-accent/10 rounded-full blur-[120px]"></div>
-          <div className="absolute top-[10%] right-[10%] w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[120px]"></div>
-          <div className="absolute top-[40%] left-[-10%] w-[600px] h-[600px] bg-purple-500/10 rounded-full blur-[120px]"></div>
+      {/* Modern Gemini-Style Green Gradients Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+          {/* Central subtle glow */}
+          <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[1200px] h-[800px] bg-emerald-900/10 rounded-full blur-[120px] opacity-60"></div>
+          
+          {/* Top Left Green Accent */}
+          <div className="absolute top-[10%] left-[15%] w-[500px] h-[500px] bg-accent/5 rounded-full blur-[100px]"></div>
+          
+          {/* Top Right Teal/Green Accent */}
+          <div className="absolute top-[5%] right-[15%] w-[600px] h-[600px] bg-teal-900/20 rounded-full blur-[120px]"></div>
+          
+          {/* Bottom ambient light */}
+          <div className="absolute bottom-[20%] left-[30%] w-[800px] h-[800px] bg-green-950/20 rounded-full blur-[150px]"></div>
       </div>
       
       <div className="container mx-auto px-6 relative z-10 flex flex-col items-center text-center">
         
-        {/* Large Centered Logo */}
+        {/* Logo - Adjusted Size (Smaller than massive, but still hero) */}
         <motion.img 
             initial={{ opacity: 0, scale: 0.8, y: -20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             src="https://i.postimg.cc/VLVz13zy/nur-logo.png"
             alt="Hansetool Logo"
-            className="w-40 md:w-64 mb-10 brightness-0 invert drop-shadow-2xl opacity-90"
+            className="w-full max-w-[320px] md:max-w-[650px] mb-8 brightness-0 invert drop-shadow-2xl opacity-90 relative z-20"
         />
 
         {/* Headline */}
@@ -45,10 +53,10 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight max-w-4xl leading-[1.1]"
+            className="text-3xl md:text-5xl text-white mb-8 tracking-tight max-w-5xl leading-tight relative z-20 flex flex-wrap justify-center gap-x-3"
         >
-          Wir machen das.<br/>
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-emerald-500">
+          <span className="font-serif italic font-semibold tracking-normal text-white">Wir machen das.</span>
+          <span className="font-sans font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-accent to-emerald-400 shadow-green-500/20 drop-shadow-sm">
              Einfach & Sauber.
           </span>
         </motion.h1>
@@ -58,7 +66,7 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-lg text-gray-400 max-w-2xl mb-10 leading-relaxed font-medium"
+            className="text-lg text-gray-400 max-w-2xl mb-12 leading-relaxed font-medium relative z-20"
         >
             Hansetool ist Ihr digitaler Partner für Reinigung, Hausmeister- und Handwerksservice in Hamburg. 
             Laden Sie die App oder buchen Sie direkt online.
@@ -69,7 +77,7 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="flex flex-col sm:flex-row gap-4 mb-24"
+            className="flex flex-col sm:flex-row gap-4 mb-24 relative z-50"
         >
             <button 
                 onClick={onOpenWizard}
@@ -98,7 +106,7 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
         </motion.div>
 
         {/* PHONE & CONNECTIONS WRAPPER */}
-        <div className="relative w-full max-w-5xl h-[800px]">
+        <div className="relative w-full max-w-5xl h-[800px] z-10">
             
             {/* SVG Lines - Background Layer (Darker Lines) */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible" viewBox="0 0 1000 800">
@@ -227,7 +235,7 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
             </motion.div>
 
 
-            {/* REALISTIC IPHONE MOCKUP (DARK MODE) */}
+            {/* REALISTIC IPHONE 15/16 PRO MOCKUP */}
             <motion.div 
                 initial={{ y: 100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -235,31 +243,28 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
                 style={{ y: phoneY }}
                 className="absolute left-1/2 top-0 -translate-x-1/2 z-30"
             >
-                <div className="relative w-[320px] h-[650px] bg-black rounded-[55px] shadow-[0_0_80px_-20px_rgba(0,0,0,0.6)]">
+                <div className="relative w-[310px] h-[640px] border-[8px] border-[#2b2b2b] rounded-[55px] bg-[#000] shadow-2xl ring-1 ring-white/10">
                     
-                    {/* Metal Frame (Dark Titanium) */}
-                    <div className="absolute inset-0 rounded-[55px] border-[6px] border-[#2a2a2a] bg-[#1a1a1a] shadow-inner z-10 pointer-events-none"></div>
-                    <div className="absolute inset-0 rounded-[55px] border-[2px] border-black/50 z-20 pointer-events-none"></div>
+                    {/* BUTTONS (Left Side) */}
+                    <div className="absolute top-28 -left-[9px] w-[4px] h-8 bg-[#2b2b2b] rounded-l-md shadow-sm"></div> {/* Action Button */}
+                    <div className="absolute top-40 -left-[9px] w-[4px] h-14 bg-[#2b2b2b] rounded-l-md shadow-sm"></div> {/* Volume Up */}
+                    <div className="absolute top-56 -left-[9px] w-[4px] h-14 bg-[#2b2b2b] rounded-l-md shadow-sm"></div> {/* Volume Down */}
                     
-                    {/* Buttons - Side */}
-                    <div className="absolute top-28 -left-[7px] w-[3px] h-7 bg-[#2a2a2a] rounded-l-md shadow-sm z-0"></div> 
-                    <div className="absolute top-40 -left-[7px] w-[3px] h-12 bg-[#2a2a2a] rounded-l-md shadow-sm z-0"></div> 
-                    <div className="absolute top-56 -left-[7px] w-[3px] h-12 bg-[#2a2a2a] rounded-l-md shadow-sm z-0"></div> 
-                    <div className="absolute top-44 -right-[7px] w-[3px] h-16 bg-[#2a2a2a] rounded-r-md shadow-sm z-0"></div> 
+                    {/* BUTTONS (Right Side) */}
+                    <div className="absolute top-44 -right-[9px] w-[4px] h-20 bg-[#2b2b2b] rounded-r-md shadow-sm"></div> {/* Power */}
 
-                    {/* Black Bezel */}
-                    <div className="absolute inset-[6px] bg-black rounded-[49px] overflow-hidden z-30">
+                    {/* SCREEN (With uniform bezel) */}
+                    <div className="w-full h-full bg-black rounded-[46px] overflow-hidden relative border border-white/5">
                         
-                        {/* SCREEN CONTENT (Dark Mode App UI) */}
+                         {/* DYNAMIC ISLAND (Floating Pill) */}
+                         <div className="absolute top-2 left-1/2 -translate-x-1/2 w-[100px] h-[30px] bg-black rounded-full z-50 flex items-center justify-center pointer-events-none">
+                            {/* Inner camera/sensor visuals */}
+                            <div className="absolute right-3 w-3 h-3 bg-[#111] rounded-full"></div>
+                            <div className="absolute right-3 w-1 h-1 bg-blue-900/30 rounded-full blur-[1px]"></div>
+                         </div>
+                        
+                        {/* APP CONTENT */}
                         <div className="w-full h-full bg-[#000000] flex flex-col relative overflow-hidden font-sans select-none text-white">
-                            
-                            {/* Dynamic Island Area */}
-                            <div className="absolute top-0 w-full h-12 z-50 flex justify-center items-end pb-1 pointer-events-none">
-                                <div className="w-[100px] h-[28px] bg-black rounded-full flex justify-center items-center relative z-50 border border-white/5">
-                                    {/* Camera dot */}
-                                    <div className="absolute right-3 w-2 h-2 rounded-full bg-[#1a1a1a]"></div>
-                                </div>
-                            </div>
 
                             {/* Status Bar */}
                             <div className="flex justify-between items-center px-6 pt-3.5 pb-2">
@@ -271,7 +276,7 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
                                 </div>
                             </div>
 
-                            {/* App Content */}
+                            {/* Main Scrollable Content */}
                             <div className="px-5 pt-4 pb-6 flex-1 flex flex-col overflow-y-auto no-scrollbar">
                                 
                                 {/* Header */}
@@ -364,11 +369,11 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
                              </div>
 
                              {/* Home Indicator */}
-                             <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/20 rounded-full z-50"></div>
+                             <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/40 rounded-full z-50"></div>
                         </div>
                         
-                        {/* Screen Gloss/Reflection Overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-transparent opacity-10 pointer-events-none z-40 rounded-[49px]"></div>
+                        {/* Screen Reflection */}
+                        <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-transparent opacity-10 pointer-events-none z-40 rounded-[46px]"></div>
                     </div>
                 </div>
                 
