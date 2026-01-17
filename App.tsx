@@ -15,15 +15,16 @@ import Lenis from 'lenis';
 
 const GlobalBackground = () => {
     return (
-        <div className="fixed inset-0 z-[-1] overflow-hidden bg-[#020202] transform-gpu">
+        <div className="fixed inset-0 z-[-1] overflow-hidden bg-black transform-gpu">
              {/* 
-                High-End Gemini Style Implementation:
-                - Layering multiple colors (Emerald, Teal, Cyan)
-                - Using 'mix-blend-screen' allows the colors to add up to light, creating that "glowing" effect against the black background.
-                - Large blur radius creates the soft, ethereal look.
+                High-End Gemini Style Implementation - OPTIMIZED FOR DEPLOYMENT
+                - Changed base to pure black (bg-black) for better contrast.
+                - Reduced opacities significantly (from ~0.4 to ~0.25). 
+                - In production, 'mix-blend-screen' is very aggressive. Lower opacity ensures it stays "Deep Emerald" 
+                  instead of washing out to "Bright Neon Green".
              */}
              
-             {/* 1. Primary Emerald Nebula (Top Left) - The main brand glow */}
+             {/* 1. Primary Emerald Nebula (Top Left) - Main Glow */}
              <motion.div 
                 animate={{ 
                     scale: [1, 1.15, 1], 
@@ -31,10 +32,10 @@ const GlobalBackground = () => {
                     x: [0, 20, 0],
                 }}
                 transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-[-20%] left-[-10%] w-[90vw] h-[85vw] bg-emerald-600 rounded-full blur-[140px] opacity-40 mix-blend-screen will-change-transform"
+                className="absolute top-[-20%] left-[-10%] w-[90vw] h-[85vw] bg-emerald-700 rounded-full blur-[140px] opacity-25 mix-blend-screen will-change-transform"
              ></motion.div>
              
-             {/* 2. Secondary Teal Aurora (Top Right) - Adds the cool spectrum depth */}
+             {/* 2. Secondary Teal Aurora (Top Right) - Cool Spectrum */}
              <motion.div 
                 animate={{ 
                     scale: [1, 1.2, 1], 
@@ -42,32 +43,32 @@ const GlobalBackground = () => {
                     y: [0, 20, 0]
                 }}
                 transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-[-10%] right-[-15%] w-[80vw] h-[80vw] bg-teal-500 rounded-full blur-[160px] opacity-35 mix-blend-screen will-change-transform"
+                className="absolute top-[-10%] right-[-15%] w-[80vw] h-[80vw] bg-teal-600 rounded-full blur-[160px] opacity-20 mix-blend-screen will-change-transform"
              ></motion.div>
 
-             {/* 3. Deep Green Foundation (Bottom) - Grounds the design */}
+             {/* 3. Deep Green Foundation (Bottom) - Grounding */}
              <motion.div 
                 animate={{ 
-                     opacity: [0.2, 0.35, 0.2],
+                     opacity: [0.15, 0.25, 0.15],
                      scale: [1, 1.05, 1]
                 }}
                 transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute bottom-[-30%] left-[10%] w-[120vw] h-[90vw] bg-green-800 rounded-full blur-[200px] opacity-30 mix-blend-screen will-change-[opacity,transform]"
+                className="absolute bottom-[-30%] left-[10%] w-[120vw] h-[90vw] bg-emerald-900 rounded-full blur-[200px] opacity-20 mix-blend-screen will-change-[opacity,transform]"
              ></motion.div>
 
-             {/* 4. Wandering Highlight (Center/Top) - Simulates light passing through fog */}
+             {/* 4. Wandering Highlight (Center/Top) - Ethereal Light */}
              <motion.div
                 animate={{
                     x: [-50, 50, -50],
                     y: [-20, 20, -20],
-                    opacity: [0.1, 0.3, 0.1]
+                    opacity: [0.05, 0.15, 0.05]
                 }}
                 transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                className="absolute top-[20%] left-[30%] w-[40vw] h-[40vw] bg-emerald-300 rounded-full blur-[120px] mix-blend-overlay pointer-events-none"
+                className="absolute top-[20%] left-[30%] w-[40vw] h-[40vw] bg-emerald-400 rounded-full blur-[120px] mix-blend-overlay pointer-events-none"
              ></motion.div>
 
-             {/* Noise Texture for that premium matte finish */}
-             <div className="absolute inset-0 opacity-[0.04] pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}></div>
+             {/* Noise Texture for premium matte finish */}
+             <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}></div>
         </div>
     )
 }
