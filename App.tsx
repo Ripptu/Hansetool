@@ -17,13 +17,13 @@ const GlobalBackground = () => {
     return (
         <div className="fixed inset-0 z-[-1] overflow-hidden bg-black transform-gpu">
              {/* 
-                Ultra-Subtle Implementation:
-                - Switched to much darker base colors (emerald-900/950, teal-900).
-                - Drastically reduced opacity (10-15%).
-                - This creates a mostly black aesthetic with just a hint of "atmosphere" rather than a green wash.
+                Pitch Black Aesthetic Implementation:
+                - Opacity reduced to single digits (0.04 - 0.08).
+                - Only using 950 shades.
+                - Result is 95% black with a "whisper" of emerald.
              */}
              
-             {/* 1. Primary Emerald Nebula (Top Left) - Very subtle glow */}
+             {/* 1. Primary Emerald Nebula (Top Left) */}
              <motion.div 
                 animate={{ 
                     scale: [1, 1.15, 1], 
@@ -31,10 +31,10 @@ const GlobalBackground = () => {
                     x: [0, 20, 0],
                 }}
                 transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-[-20%] left-[-10%] w-[90vw] h-[85vw] bg-emerald-900 rounded-full blur-[140px] opacity-15 mix-blend-screen will-change-transform"
+                className="absolute top-[-20%] left-[-10%] w-[90vw] h-[85vw] bg-emerald-950 rounded-full blur-[140px] opacity-[0.08] mix-blend-screen will-change-transform"
              ></motion.div>
              
-             {/* 2. Secondary Teal Aurora (Top Right) - Deep Cool Tone */}
+             {/* 2. Secondary Teal Aurora (Top Right) */}
              <motion.div 
                 animate={{ 
                     scale: [1, 1.2, 1], 
@@ -42,32 +42,32 @@ const GlobalBackground = () => {
                     y: [0, 20, 0]
                 }}
                 transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-[-10%] right-[-15%] w-[80vw] h-[80vw] bg-teal-900 rounded-full blur-[160px] opacity-10 mix-blend-screen will-change-transform"
+                className="absolute top-[-10%] right-[-15%] w-[80vw] h-[80vw] bg-teal-950 rounded-full blur-[160px] opacity-[0.04] mix-blend-screen will-change-transform"
              ></motion.div>
 
-             {/* 3. Deep Green Foundation (Bottom) - Almost black */}
+             {/* 3. Deep Green Foundation (Bottom) */}
              <motion.div 
                 animate={{ 
-                     opacity: [0.1, 0.15, 0.1],
+                     opacity: [0.03, 0.06, 0.03],
                      scale: [1, 1.05, 1]
                 }}
                 transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute bottom-[-30%] left-[10%] w-[120vw] h-[90vw] bg-emerald-950 rounded-full blur-[200px] opacity-10 mix-blend-screen will-change-[opacity,transform]"
+                className="absolute bottom-[-30%] left-[10%] w-[120vw] h-[90vw] bg-emerald-950 rounded-full blur-[200px] opacity-[0.05] mix-blend-screen will-change-[opacity,transform]"
              ></motion.div>
 
-             {/* 4. Wandering Highlight (Center/Top) - Faint shimmer */}
+             {/* 4. Wandering Highlight */}
              <motion.div
                 animate={{
                     x: [-50, 50, -50],
                     y: [-20, 20, -20],
-                    opacity: [0.02, 0.05, 0.02]
+                    opacity: [0.01, 0.02, 0.01]
                 }}
                 transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                className="absolute top-[20%] left-[30%] w-[40vw] h-[40vw] bg-emerald-800 rounded-full blur-[120px] mix-blend-overlay pointer-events-none"
+                className="absolute top-[20%] left-[30%] w-[40vw] h-[40vw] bg-emerald-900 rounded-full blur-[120px] mix-blend-overlay pointer-events-none"
              ></motion.div>
 
-             {/* Noise Texture for premium matte finish */}
-             <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}></div>
+             {/* Noise Texture - extremely subtle */}
+             <div className="absolute inset-0 opacity-[0.02] pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}></div>
         </div>
     )
 }
@@ -76,8 +76,8 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
   return (
     <section className="relative min-h-[90vh] flex flex-col items-center justify-center pt-0 pb-0 overflow-hidden">
       
-      {/* Localized Spotlight for Hero Text - Very Subtle */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-emerald-900/10 blur-[100px] pointer-events-none z-0 mix-blend-screen"></div>
+      {/* Localized Spotlight - Dimmed */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-emerald-950/20 blur-[120px] pointer-events-none z-0 mix-blend-screen"></div>
 
       <div className="container mx-auto px-6 relative z-10 flex flex-col items-center text-center">
         
@@ -93,8 +93,8 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
 
         {/* Headline */}
         <div className="relative">
-             {/* Text Glow Backing - Reduced */}
-             <div className="absolute inset-0 bg-emerald-900/20 blur-3xl rounded-full scale-150 pointer-events-none"></div>
+             {/* Text Glow Backing - Minimal */}
+             <div className="absolute inset-0 bg-emerald-950/30 blur-3xl rounded-full scale-150 pointer-events-none"></div>
              
             <motion.h1 
                 initial={{ opacity: 0, y: 20 }}
@@ -103,7 +103,7 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
                 className="text-3xl md:text-5xl text-white mb-8 tracking-tight max-w-5xl leading-tight relative z-20 flex flex-wrap justify-center gap-x-3"
             >
             <span className="font-serif italic font-semibold tracking-normal text-white">Wir machen das.</span>
-            <span className="font-sans font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-100 drop-shadow-[0_0_15px_rgba(34,197,94,0.1)]">
+            <span className="font-sans font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-100 drop-shadow-[0_0_15px_rgba(34,197,94,0.05)]">
                 Einfach & Sauber.
             </span>
             </motion.h1>
@@ -129,7 +129,7 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
         >
             <button 
                 onClick={onOpenWizard}
-                className="flex items-center gap-3 bg-white text-black px-8 py-3.5 rounded-full font-bold hover:bg-gray-200 transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:-translate-y-1"
+                className="flex items-center gap-3 bg-white text-black px-8 py-3.5 rounded-full font-bold hover:bg-gray-200 transition-all shadow-[0_0_20px_rgba(255,255,255,0.05)] hover:-translate-y-1"
             >
                 <div className="bg-black/10 p-1.5 rounded-full">
                     <Sparkles size={18} className="text-black" />
@@ -169,7 +169,7 @@ const IntroSection = () => {
   return (
     <section id="about" className="py-24 bg-transparent overflow-hidden" ref={ref}>
       <div className="container mx-auto px-6 relative">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-900/5 blur-[100px] pointer-events-none mix-blend-screen"></div>
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-950/10 blur-[100px] pointer-events-none mix-blend-screen"></div>
 
         <div className="flex items-center gap-4 mb-16 relative z-10">
             <h2 className="text-3xl md:text-5xl font-medium text-white">Kein anonymer Dienstleister. Wir packen an.</h2>
@@ -226,7 +226,7 @@ const ServicesSection = () => {
     <section id="services" className="py-32 bg-transparent relative">
         <div className="container mx-auto px-6 relative z-10">
             <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-white/10 pb-8 relative">
-                <div className="absolute top-0 left-0 w-[300px] h-[100px] bg-emerald-900/10 blur-[80px] pointer-events-none mix-blend-screen"></div>
+                <div className="absolute top-0 left-0 w-[300px] h-[100px] bg-emerald-950/20 blur-[80px] pointer-events-none mix-blend-screen"></div>
                 <div className="max-w-2xl relative z-10">
                     <span className="text-accent font-bold uppercase tracking-widest mb-3 block text-sm">Unser Portfolio</span>
                     <h2 className="text-4xl md:text-5xl font-medium text-white tracking-tight">Dienstleistungen für Profis.</h2>
@@ -266,15 +266,15 @@ const ValuesSection = () => {
 
   return (
     <section id="values" className="py-24 bg-transparent relative overflow-hidden">
-        <motion.div style={{ y }} className="absolute top-0 right-0 w-full max-w-4xl h-[500px] bg-emerald-900/5 blur-[120px] rounded-full pointer-events-none"></motion.div>
+        <motion.div style={{ y }} className="absolute top-0 right-0 w-full max-w-4xl h-[500px] bg-emerald-950/10 blur-[120px] rounded-full pointer-events-none"></motion.div>
 
         <div className="container mx-auto px-6 relative z-10">
             <div className="mb-20 relative">
-                <div className="absolute top-0 left-0 w-[400px] h-[200px] bg-teal-900/10 blur-[100px] pointer-events-none mix-blend-screen"></div>
+                <div className="absolute top-0 left-0 w-[400px] h-[200px] bg-teal-950/10 blur-[100px] pointer-events-none mix-blend-screen"></div>
                 <span className="text-accent font-bold uppercase tracking-widest mb-2 block relative z-10">Die DNA</span>
                 <h2 className="text-5xl md:text-7xl font-bold text-white max-w-4xl tracking-tight relative z-10">
                     Keine Floskeln.<br/>
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-emerald-800">Echtes Handwerk.</span>
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-emerald-900">Echtes Handwerk.</span>
                 </h2>
             </div>
 
@@ -356,7 +356,7 @@ const ProjectShowcase = () => {
             <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
             <div className="container mx-auto px-6 relative z-10">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-20 relative">
-                    <div className="absolute top-[-20%] left-[-10%] w-[400px] h-[200px] bg-emerald-900/10 blur-[100px] pointer-events-none mix-blend-screen"></div>
+                    <div className="absolute top-[-20%] left-[-10%] w-[400px] h-[200px] bg-emerald-950/20 blur-[100px] pointer-events-none mix-blend-screen"></div>
                     <div className="relative z-10">
                         <div className="flex items-center gap-2 mb-4">
                             <span className="h-[1px] w-8 bg-accent"></span>
@@ -402,7 +402,7 @@ const ContactTerminal = () => {
         <section id="contact" className="py-24 bg-transparent relative overflow-hidden border-t border-white/5">
             <div className="container mx-auto px-6 relative z-10">
                 <div className="bg-[#111] rounded-3xl overflow-hidden border border-white/5 shadow-xl relative">
-                    <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-emerald-900/10 blur-[120px] pointer-events-none"></div>
+                    <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-emerald-950/20 blur-[120px] pointer-events-none"></div>
                     <div className="grid lg:grid-cols-5 min-h-[500px] relative z-10">
                         <div className="lg:col-span-3 p-10 md:p-16 flex flex-col justify-center relative">
                             <div className="absolute left-0 top-10 h-px w-20 bg-accent"></div>
