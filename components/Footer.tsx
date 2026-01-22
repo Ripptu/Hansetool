@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Mail, Phone, MapPin, X } from 'lucide-react';
+import { Mail, Phone, MapPin, X, ArrowUpRight, Facebook, Instagram, Linkedin } from 'lucide-react';
 import { HamburgSkyline } from './HamburgSkyline';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const Clock: React.FC<{ timeZone: string; label: string }> = ({ timeZone, label }) => {
+const Clock: React.FC<{ timeZone: string; }> = ({ timeZone }) => {
   const [time, setTime] = useState<string>('');
 
   useEffect(() => {
@@ -16,9 +16,7 @@ const Clock: React.FC<{ timeZone: string; label: string }> = ({ timeZone, label 
   }, [timeZone]);
 
   return (
-    <div className="text-right">
-      <div className="text-gray-text text-sm mb-1">{label} - {time} Uhr</div>
-    </div>
+      <span className="font-mono">{time}</span>
   );
 };
 
@@ -158,64 +156,108 @@ export const Footer: React.FC = () => {
     setLegalModal({ ...legalModal, isOpen: false });
   };
 
+  const footerLinks = [
+      { name: 'Reinigung', href: '#services' },
+      { name: 'Handwerk', href: '#services' },
+      { name: 'Hausmeister', href: '#services' },
+      { name: 'Notdienst', href: '#contact' },
+  ];
+
   return (
     <>
-      <footer className="bg-dark pt-24 pb-0 border-t border-gray-border relative overflow-hidden">
+      <footer className="bg-[#050505] pt-32 pb-12 border-t border-white/5 relative overflow-hidden">
+        {/* Massive Typographic Background */}
+        <div className="absolute top-10 left-0 w-full overflow-hidden opacity-[0.03] pointer-events-none select-none">
+            <h1 className="text-[15vw] font-bold text-white leading-none tracking-tighter text-center whitespace-nowrap">
+                HANSETOOL
+            </h1>
+        </div>
+
         <div className="container mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-24">
-            <div className="space-y-8">
-              <div className="flex items-center gap-2 mb-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 mb-24">
+            
+            {/* Brand Column */}
+            <div className="lg:col-span-5 space-y-8">
+               <a href="#" className="block mb-8">
                   <img 
                     src="https://i.postimg.cc/VLVz13zy/nur-logo.png" 
                     alt="Hansetool" 
-                    className="h-16 w-auto brightness-0 invert opacity-90" 
+                    className="h-12 w-auto brightness-0 invert opacity-100" 
                   />
-              </div>
-              <p className="text-gray-text text-lg max-w-md">
-                Bodenständig. Zuverlässig. Lösungsorientiert.<br/>
-                Ihr Partner für Gewerbe und Immobilien in Hamburg.
-              </p>
-              
-              <div className="space-y-2 pt-4">
-                  <a href="mailto:info@hansetool.de" className="flex items-center gap-3 text-gray-text hover:text-white transition-colors">
-                      <Mail className="w-5 h-5" /> info@hansetool.de
-                  </a>
-                  <a href="tel:+4940123456" className="flex items-center gap-3 text-gray-text hover:text-white transition-colors">
-                      <Phone className="w-5 h-5" /> +49 (0) 40 123 456
-                  </a>
-                  <div className="flex items-center gap-3 text-gray-text">
-                      <MapPin className="w-5 h-5" /> Hamburg & Umgebung
-                  </div>
-              </div>
+               </a>
+               <p className="text-2xl font-medium text-white leading-tight max-w-md">
+                   Wir bringen Ordnung in Hamburgs Gewerbe und Immobilien. <span className="text-gray-500">Direkt, sauber und ohne Schnickschnack.</span>
+               </p>
+               
+               <div className="flex gap-4 pt-4">
+                  {[Facebook, Instagram, Linkedin].map((Icon, i) => (
+                      <a key={i} href="#" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all hover:scale-110">
+                          <Icon size={20} />
+                      </a>
+                  ))}
+               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-8">
-              <div className="space-y-4">
-                  <a href="#services" className="block text-gray-text hover:text-white transition-colors">Reinigung</a>
-                  <a href="#services" className="block text-gray-text hover:text-white transition-colors">Hausmeisterservice</a>
-                  <a href="#services" className="block text-gray-text hover:text-white transition-colors">Handwerk</a>
-                  <a href="#services" className="block text-gray-text hover:text-white transition-colors">Umzüge</a>
-              </div>
-              <div className="space-y-8">
-                  <div>
-                      <Clock timeZone="Europe/Berlin" label="Hamburg" />
-                      <p className="text-gray-text text-right text-xs mt-1">Einsatzgebiet Hamburg</p>
-                  </div>
-              </div>
+            {/* Quick Links with Hover Effect */}
+            <div className="lg:col-span-3">
+                <h4 className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-8">Navigation</h4>
+                <div className="flex flex-col gap-4">
+                    {footerLinks.map((link) => (
+                        <a key={link.name} href={link.href} className="group flex items-center justify-between text-lg text-gray-300 hover:text-white border-b border-white/5 pb-4 transition-colors">
+                            {link.name}
+                            <ArrowUpRight className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-accent" size={18} />
+                        </a>
+                    ))}
+                </div>
+            </div>
+
+            {/* Contact & Status */}
+            <div className="lg:col-span-4">
+                <h4 className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-8">Status & Kontakt</h4>
+                <div className="bg-[#111] rounded-2xl p-8 border border-white/5 space-y-6">
+                    <div className="flex justify-between items-center pb-6 border-b border-white/5">
+                        <span className="text-gray-400">Hamburg</span>
+                        <div className="flex items-center gap-2 text-accent bg-accent/10 px-3 py-1 rounded-full text-xs font-bold">
+                            <span className="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+                            <Clock timeZone="Europe/Berlin" />
+                        </div>
+                    </div>
+                    
+                    <a href="mailto:info@hansetool.de" className="flex items-center gap-4 text-white group cursor-pointer">
+                        <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-accent group-hover:text-black transition-colors">
+                            <Mail size={18} />
+                        </div>
+                        <div>
+                            <span className="block text-xs text-gray-500 uppercase tracking-wide">Schreiben</span>
+                            <span className="text-lg font-medium">info@hansetool.de</span>
+                        </div>
+                    </a>
+                    
+                    <a href="tel:+4915255905935" className="flex items-center gap-4 text-white group cursor-pointer">
+                        <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-accent group-hover:text-black transition-colors">
+                            <Phone size={18} />
+                        </div>
+                        <div>
+                            <span className="block text-xs text-gray-500 uppercase tracking-wide">Anrufen</span>
+                            <span className="text-lg font-medium">+49 (0) 40 123 456</span>
+                        </div>
+                    </a>
+                </div>
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row justify-between items-center py-8 border-t border-gray-border text-xs text-gray-text bg-dark relative z-10">
-              <p>© 2025 Hansetool. Alle Rechte vorbehalten.</p>
-              <div className="flex gap-6 mt-4 md:mt-0">
+          <div className="flex flex-col md:flex-row justify-between items-end pt-8 border-t border-white/10 text-sm text-gray-500">
+              <div className="flex gap-8 mb-4 md:mb-0">
                   <button onClick={() => openLegal('impressum')} className="hover:text-white transition-colors">Impressum</button>
                   <button onClick={() => openLegal('privacy')} className="hover:text-white transition-colors">Datenschutz</button>
+                  <a href="#" className="hover:text-white transition-colors">AGB</a>
               </div>
+              <p>© 2025 Hansetool Hamburg. Built for Makers.</p>
           </div>
         </div>
         
-        {/* Hamburg Skyline Background at bottom */}
-        <div className="absolute bottom-0 left-0 w-full text-[#1a1a1a] pointer-events-none opacity-50">
+        {/* Subtle City Silhouette at very bottom */}
+        <div className="absolute bottom-0 left-0 w-full text-white/5 pointer-events-none">
           <HamburgSkyline />
         </div>
       </footer>

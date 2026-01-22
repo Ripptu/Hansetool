@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Footer } from './components/Footer';
 import { Button } from './components/Button';
 import { SERVICES, VALUES, CLIENT_LOGOS } from './constants';
-import { ArrowRight, CheckCircle2, Phone, Mail, MapPin, Sparkles, Wrench, Truck, Anchor, ShieldCheck, Zap, HeartHandshake, ArrowUpRight, ClipboardCheck, Loader2, Star, Clock, User, Search, ShoppingCart, Bell, Menu, Play, Battery, Wifi, Signal, Leaf, Layers, Box, X, Check } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Phone, Mail, MapPin, Sparkles, Wrench, Truck, Anchor, ShieldCheck, Zap, HeartHandshake, ArrowUpRight, ClipboardCheck, Loader2, Star, Clock, User, Search, ShoppingCart, Bell, Menu, Play, Battery, Wifi, Signal, Leaf, Layers, Box, X, Check, MessageCircle } from 'lucide-react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { Testimonials } from './components/ui/Testimonials';
 import { ServiceCard } from './components/ui/service-card';
@@ -72,11 +72,142 @@ const GlobalBackground = () => {
     )
 }
 
+const Preloader = ({ onComplete }: { onComplete: () => void }) => {
+    const [progress, setProgress] = useState(0);
+    const [isFinished, setIsFinished] = useState(false);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setProgress((prev) => {
+                // S-Curve Loading for "Satisfying" feel
+                const increment = prev < 30 ? 2 : prev < 70 ? 4 : prev < 90 ? 2 : 1;
+                const next = prev + increment;
+                if (next >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => setIsFinished(true), 400); // Wait a bit at 100%
+                    setTimeout(onComplete, 1200); // Allow exit animation to play
+                    return 100;
+                }
+                return next;
+            });
+        }, 30);
+
+        return () => clearInterval(interval);
+    }, [onComplete]);
+
+    return (
+        <motion.div
+            className="fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center overflow-hidden"
+            initial={{ opacity: 1 }}
+            animate={isFinished ? { 
+                opacity: 0,
+                pointerEvents: "none",
+                filter: "blur(20px)",
+                scale: 1.1
+            } : { 
+                opacity: 1,
+                scale: 1,
+                filter: "blur(0px)"
+            }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        >
+            {/* Ambient Background Glow */}
+            <div className="absolute inset-0 flex items-center justify-center">
+                 <motion.div 
+                    animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    className="w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] bg-emerald-500/10 rounded-full blur-[120px]"
+                 />
+            </div>
+
+            <div className="relative w-full h-full flex flex-col items-center justify-center px-6">
+                
+                {/* MASSIVE LOGO */}
+                <motion.div
+                    initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                    animate={{ scale: 1, opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    className="relative z-10 mb-12 md:mb-16"
+                >
+                    <img
+                        src="https://i.postimg.cc/VLVz13zy/nur-logo.png"
+                        alt="Hansetool"
+                        className="w-[70vw] md:w-[500px] max-w-full brightness-0 invert drop-shadow-2xl"
+                    />
+                    
+                    {/* Shimmer Effect over Logo */}
+                    <motion.div 
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12"
+                        initial={{ x: '-150%' }}
+                        animate={{ x: '150%' }}
+                        transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1, ease: "easeInOut" }}
+                    />
+                </motion.div>
+
+                {/* Cinematic Counter */}
+                <div className="relative z-10 flex flex-col items-center">
+                    <div className="flex items-baseline gap-1">
+                        <motion.span 
+                            className="text-6xl md:text-8xl font-bold text-white tracking-tighter tabular-nums"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                        >
+                            {Math.floor(progress)}
+                        </motion.span>
+                        <span className="text-xl md:text-2xl text-emerald-500 font-medium">%</span>
+                    </div>
+                    
+                    {/* Minimal Progress Line */}
+                    <div className="w-64 h-[1px] bg-white/10 mt-6 relative overflow-hidden">
+                        <motion.div 
+                            className="absolute left-0 top-0 bottom-0 bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.8)]"
+                            style={{ width: `${progress}%` }}
+                        />
+                    </div>
+                    
+                    <motion.span 
+                        className="text-xs text-gray-500 font-mono mt-2 uppercase tracking-[0.2em]"
+                        animate={{ opacity: [0.5, 1, 0.5] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                    >
+                        Initializing System
+                    </motion.span>
+                </div>
+            </div>
+
+            {/* Premium Glass Dock for Emergency Shortcuts */}
+            <motion.div 
+                initial={{ y: 100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.5, type: "spring", stiffness: 200, damping: 20 }}
+                className="absolute bottom-10 z-20"
+            >
+                <div className="flex items-center gap-2 p-2 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl">
+                     <a href="tel:+4915255905935" className="group flex flex-col items-center justify-center w-20 h-16 rounded-xl hover:bg-white/10 transition-colors cursor-pointer">
+                        <Phone size={20} className="text-white mb-1 group-hover:scale-110 transition-transform" />
+                        <span className="text-[10px] font-bold text-gray-400 group-hover:text-white uppercase">Anruf</span>
+                     </a>
+                     
+                     <div className="w-[1px] h-8 bg-white/10"></div>
+
+                     <a href="https://wa.me/4915255905935" className="group flex flex-col items-center justify-center w-20 h-16 rounded-xl hover:bg-[#25D366]/20 transition-colors cursor-pointer">
+                        <MessageCircle size={20} className="text-[#25D366] mb-1 group-hover:scale-110 transition-transform" />
+                        <span className="text-[10px] font-bold text-gray-400 group-hover:text-[#25D366] uppercase">WhatsApp</span>
+                     </a>
+                </div>
+                <p className="text-center text-[10px] text-gray-600 mt-3 uppercase tracking-wider font-medium">
+                    Warten überspringen
+                </p>
+            </motion.div>
+        </motion.div>
+    );
+};
+
 const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center pt-0 pb-0 overflow-hidden">
       
-      {/* Background Image Layer - Optimized & Simplified */}
+      {/* Background Image Layer - Strictly only the Craftsman Image */}
       <div className="absolute inset-0 z-0">
           <img 
             src="https://i.postimg.cc/Sm6ys74N/hf-20260122-222900-748554a2-a670-43b9-8666-2d03312eec39.png" 
@@ -84,30 +215,34 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
             className="w-full h-full object-cover"
             fetchPriority="high"
             loading="eager"
+            decoding="async"
           />
-          {/* Simple darkening overlay - No gradients, just readability */}
+          {/* Simple darkening overlay - No gradients on top, just readability */}
           <div className="absolute inset-0 bg-black/50"></div>
+          
+          {/* Smooth Fade to Black at Bottom - Increased height for smoother transition */}
+          <div className="absolute bottom-0 left-0 w-full h-96 bg-gradient-to-t from-[#000000] via-[#050505]/80 to-transparent"></div>
       </div>
 
-      <div className="container mx-auto px-6 relative z-10 flex flex-col items-center text-center">
+      <div className="container mx-auto px-6 relative z-10 flex flex-col items-center text-center -mt-24">
         
-        {/* Logo */}
+        {/* Logo - Moved down approx 40px (mt-10) to create separation, +20px from before */}
         <motion.img 
             initial={{ opacity: 0, scale: 0.9, y: -10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
             src="https://i.postimg.cc/VLVz13zy/nur-logo.png"
             alt="Hansetool Logo"
-            className="w-full max-w-[320px] md:max-w-[650px] mb-8 brightness-0 invert drop-shadow-2xl opacity-90 relative z-20"
+            className="w-full max-w-[320px] md:max-w-[650px] mt-10 mb-2 brightness-0 invert drop-shadow-2xl opacity-90 relative z-20"
         />
 
-        {/* Headline */}
-        <div className="relative">
+        {/* Headline Container - Pulled up further (-mt-14) to maintain text position despite logo moving down */}
+        <div className="relative -mt-14">
             <motion.h1 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="text-3xl md:text-5xl text-white mb-8 tracking-tight max-w-5xl leading-tight relative z-20 flex flex-wrap justify-center gap-x-3"
+                className="text-3xl md:text-5xl text-white mb-6 tracking-tight max-w-5xl leading-tight relative z-20 flex flex-wrap justify-center gap-x-3"
             >
             <span className="font-serif italic font-semibold tracking-normal text-white">Wir machen das.</span>
             <span className="font-sans font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-100 drop-shadow-[0_0_15px_rgba(34,197,94,0.05)]">
@@ -121,7 +256,7 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-lg text-gray-300 max-w-2xl mb-12 leading-relaxed font-medium relative z-20"
+            className="text-lg text-gray-300 max-w-2xl mb-10 leading-relaxed font-medium relative z-20"
         >
             Hansetool ist Ihr Partner für Reinigung, Hausmeister- und Handwerksservice in Hamburg. 
             Buchen Sie direkt online.
@@ -174,7 +309,7 @@ const IntroSection = () => {
   const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
   return (
-    <section id="about" className="py-24 bg-transparent overflow-hidden" ref={ref}>
+    <section id="about" className="py-24 bg-transparent overflow-hidden scroll-mt-28" ref={ref}>
       <div className="container mx-auto px-6 relative">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-950/10 blur-[100px] pointer-events-none mix-blend-screen"></div>
 
@@ -233,7 +368,7 @@ const ServicesSection = () => {
 
   return (
     <>
-        <section id="services" className="py-32 bg-transparent relative overflow-hidden">
+        <section id="services" className="py-32 bg-transparent relative overflow-hidden scroll-mt-28">
             {/* Colorful Ambient Backgrounds for the whole section */}
             <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-cyan-950/20 blur-[120px] rounded-full pointer-events-none mix-blend-screen"></div>
             <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-purple-950/20 blur-[120px] rounded-full pointer-events-none mix-blend-screen"></div>
@@ -406,7 +541,7 @@ const ValuesSection = () => {
   const y = useTransform(scrollYProgress, [0.5, 1], [0, -100]);
 
   return (
-    <section id="values" className="py-24 bg-transparent relative overflow-hidden">
+    <section id="values" className="py-24 bg-transparent relative overflow-hidden scroll-mt-28">
         <motion.div style={{ y }} className="absolute top-0 right-0 w-full max-w-4xl h-[500px] bg-emerald-950/10 blur-[120px] rounded-full pointer-events-none"></motion.div>
 
         <div className="container mx-auto px-6 relative z-10">
@@ -485,7 +620,7 @@ const ProjectShowcase = () => {
             location: 'ALTONA ALTBAU',
             title: 'Sanierung & Instandsetzung',
             desc: 'Komplette Aufbereitung der Böden und Reparatur der Haustechnik.',
-            image: 'https://images.unsplash.com/photo-1581579186913-45ac3e6e3dd2?q=80&w=600&auto=format&fit=crop',
+            image: 'https://media.istockphoto.com/id/2184055408/de/foto/ein-bauherr-hilft-bei-der-montage-eines-fensterrahmens.jpg?s=2048x2048&w=is&k=20&c=r7R1zsaPeG-luTnSu-CZBOIdZfw7j3Oi02IH0hiszQs=',
             tag: 'HANDWERK'
         },
         {
@@ -546,7 +681,7 @@ const ProjectShowcase = () => {
 
 const ContactTerminal = () => {
     return (
-        <section id="contact" className="py-24 bg-transparent relative overflow-hidden border-t border-white/5">
+        <section id="contact" className="py-24 bg-transparent relative overflow-hidden border-t border-white/5 scroll-mt-28">
             <div className="container mx-auto px-6 relative z-10">
                 <div className="bg-[#111] rounded-3xl overflow-hidden border border-white/5 shadow-xl relative">
                     <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-emerald-950/20 blur-[120px] pointer-events-none"></div>
@@ -590,6 +725,7 @@ const ContactTerminal = () => {
 function App() {
   const [isWizardOpen, setIsWizardOpen] = useState(false);
   const [isEmergencyMode, setIsEmergencyMode] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   
   // Smooth Scroll Hook (Lenis) - Optimized for performance
   useEffect(() => {
@@ -621,6 +757,9 @@ function App() {
   // IMPORTANT: Removed 'bg-[#020202]' to allow GlobalBackground to be visible
   return (
     <div className={`min-h-screen font-sans selection:bg-accent selection:text-black transition-colors duration-500 ${isEmergencyMode ? 'bg-red-950' : 'bg-transparent'}`}>
+      
+      {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
+      
       <GlobalBackground />
       <Navbar />
       
