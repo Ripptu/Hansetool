@@ -10,39 +10,63 @@ export const CLIENT_LOGOS: ClientLogo[] = [
   { id: '6', name: 'Hamburg Office', url: 'https://via.placeholder.com/150x50/333333/808080?text=Hamburg+Office' },
 ];
 
-// Updated, more creative services with colorful 3D icons
-export const SERVICES: (ServiceCategory & { variant?: "default" | "accent" | "outline" })[] = [
+// Updated services with Color Themes for a modern UI
+export const SERVICES = [
   {
     id: '1',
     title: 'Glanzleistung & Hygiene',
     description: 'Vom staubigen Lagerboden bis zu glasigen Fenstern. Wir putzen nicht nur, wir werten auf. Mit modernsten Techniken und Blick fürs Detail.',
     items: ['Industriereinigung', 'Büroreinigung', 'Glas- & Fassade', 'Teppich-Tiefenreinigung'],
-    image: 'https://cdn-icons-png.flaticon.com/128/994/994928.png', // 3D Cleaning Bucket (Original)
-    variant: 'default'
+    image: 'https://cdn-icons-png.flaticon.com/128/994/994928.png',
+    theme: {
+        primary: 'text-cyan-400',
+        bg: 'bg-cyan-500/10',
+        border: 'group-hover:border-cyan-500/50',
+        glow: 'from-cyan-500/20 to-blue-600/5',
+        gradient: 'from-cyan-400 to-blue-500'
+    }
   },
   {
     id: '2',
     title: 'Technik & Instandhaltung',
     description: 'Hausmeisterservice 2.0. Wenn es tropft, klemmt oder dunkel bleibt, sind wir schon unterwegs. Präventive Wartung statt teurer Reparaturen.',
     items: ['Wartung & Reparatur', 'Leuchtmittel-Service', 'Möbelmontage', 'Schließanlagen'],
-    image: 'https://cdn-icons-png.flaticon.com/128/2276/2276313.png', // 3D Tools - Wrench & Hammer (Original)
-    variant: 'default'
+    image: 'https://cdn-icons-png.flaticon.com/128/2276/2276313.png',
+    theme: {
+        primary: 'text-amber-400',
+        bg: 'bg-amber-500/10',
+        border: 'group-hover:border-amber-500/50',
+        glow: 'from-amber-500/20 to-orange-600/5',
+        gradient: 'from-amber-400 to-orange-500'
+    }
   },
   {
     id: '3',
     title: 'Logistik & Anpacken',
     description: 'Wir sind uns für nichts zu schade. Interne Umzüge, Entrümpelung von Kellern oder der Transport von A nach B. Schnell, stark, sauber.',
     items: ['Büroumzüge', 'Entsorgung', 'Transporte', 'Lagerlogistik'],
-    image: 'https://cdn-icons-png.flaticon.com/128/870/870130.png', // 3D Delivery Truck (Original)
-    variant: 'accent' // Highlight this one
+    image: 'https://cdn-icons-png.flaticon.com/128/870/870130.png',
+    theme: {
+        primary: 'text-violet-400',
+        bg: 'bg-violet-500/10',
+        border: 'group-hover:border-violet-500/50',
+        glow: 'from-violet-500/20 to-purple-600/5',
+        gradient: 'from-violet-400 to-purple-500'
+    }
   },
   {
     id: '4',
     title: 'Aussenanlagen & Grün',
     description: 'Der erste Eindruck zählt. Wir sorgen für geschnittene Hecken, laubfreie Wege und einen repräsentativen Eingangsbereich.',
     items: ['Grünpflege', 'Winterdienst', 'Parkplatzreinigung', 'Graffitientfernung'],
-    image: 'https://cdn-icons-png.flaticon.com/128/489/489969.png', // 3D Plant/Tree (Original)
-    variant: 'default'
+    image: 'https://cdn-icons-png.flaticon.com/128/489/489969.png',
+    theme: {
+        primary: 'text-emerald-400',
+        bg: 'bg-emerald-500/10',
+        border: 'group-hover:border-emerald-500/50',
+        glow: 'from-emerald-500/20 to-green-600/5',
+        gradient: 'from-emerald-400 to-green-500'
+    }
   }
 ];
 

@@ -2,13 +2,13 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Footer } from './components/Footer';
 import { Button } from './components/Button';
 import { SERVICES, VALUES, CLIENT_LOGOS } from './constants';
-import { ArrowRight, CheckCircle2, Phone, Mail, MapPin, Sparkles, Wrench, Truck, Anchor, ShieldCheck, Zap, HeartHandshake, ArrowUpRight, ClipboardCheck, Loader2, Star, Clock, User, Search, ShoppingCart, Bell, Menu, Play, Battery, Wifi, Signal, Leaf, Layers, Box } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Phone, Mail, MapPin, Sparkles, Wrench, Truck, Anchor, ShieldCheck, Zap, HeartHandshake, ArrowUpRight, ClipboardCheck, Loader2, Star, Clock, User, Search, ShoppingCart, Bell, Menu, Play, Battery, Wifi, Signal, Leaf, Layers, Box, X, Check } from 'lucide-react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { Testimonials } from './components/ui/Testimonials';
 import { ServiceCard } from './components/ui/service-card';
 import { InquiryWizard } from './components/InquiryWizard';
 import { DirectDispatch } from './components/DirectDispatch';
-import { BudgetCalculator } from './components/BudgetCalculator';
+import { LeadGenQuiz } from './components/LeadGenQuiz';
 import { Navbar } from './components/Navbar';
 // @ts-ignore
 import Lenis from 'lenis';
@@ -74,10 +74,20 @@ const GlobalBackground = () => {
 
 const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
   return (
-    <section className="relative min-h-[90vh] flex flex-col items-center justify-center pt-0 pb-0 overflow-hidden">
+    <section className="relative min-h-screen flex flex-col items-center justify-center pt-0 pb-0 overflow-hidden">
       
-      {/* Localized Spotlight - Dimmed */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-emerald-950/20 blur-[120px] pointer-events-none z-0 mix-blend-screen"></div>
+      {/* Background Image Layer - Optimized & Simplified */}
+      <div className="absolute inset-0 z-0">
+          <img 
+            src="https://i.postimg.cc/Sm6ys74N/hf-20260122-222900-748554a2-a670-43b9-8666-2d03312eec39.png" 
+            alt="Hansetool Work" 
+            className="w-full h-full object-cover"
+            fetchPriority="high"
+            loading="eager"
+          />
+          {/* Simple darkening overlay - No gradients, just readability */}
+          <div className="absolute inset-0 bg-black/50"></div>
+      </div>
 
       <div className="container mx-auto px-6 relative z-10 flex flex-col items-center text-center">
         
@@ -93,9 +103,6 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
 
         {/* Headline */}
         <div className="relative">
-             {/* Text Glow Backing - Minimal */}
-             <div className="absolute inset-0 bg-emerald-950/30 blur-3xl rounded-full scale-150 pointer-events-none"></div>
-             
             <motion.h1 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -114,7 +121,7 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-lg text-gray-400 max-w-2xl mb-12 leading-relaxed font-medium relative z-20"
+            className="text-lg text-gray-300 max-w-2xl mb-12 leading-relaxed font-medium relative z-20"
         >
             Hansetool ist Ihr Partner für Reinigung, Hausmeister- und Handwerksservice in Hamburg. 
             Buchen Sie direkt online.
@@ -178,7 +185,7 @@ const IntroSection = () => {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-start relative z-10">
             <motion.div style={{ y }} className="relative rounded-2xl overflow-hidden aspect-[4/3] border border-white/5 shadow-2xl">
                 <img 
-                  src="https://higgsfield.ai/_next/image?url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_2zg6kRsQgLvpBAc5mmGVtMaqZi0%2Fhf_20260115_170237_e68ce8dc-208d-442d-b08c-415e753434a0.png&w=1080&q=75" 
+                  src="https://i.postimg.cc/0xyrB3sK/hf-20260122-222646-1a20eff3-a60b-4f98-81bd-b116496e0b8a.jpg" 
                   alt="Hansetool Team" 
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" 
                 />
@@ -215,6 +222,8 @@ const IntroSection = () => {
 
 // Services Section
 const ServicesSection = () => {
+  const [selectedService, setSelectedService] = useState<typeof SERVICES[0] | null>(null);
+
   const icons: Record<string, any> = {
     '1': Sparkles,
     '2': Wrench,
@@ -223,40 +232,172 @@ const ServicesSection = () => {
   };
 
   return (
-    <section id="services" className="py-32 bg-transparent relative">
-        <div className="container mx-auto px-6 relative z-10">
-            <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-white/10 pb-8 relative">
-                <div className="absolute top-0 left-0 w-[300px] h-[100px] bg-emerald-950/20 blur-[80px] pointer-events-none mix-blend-screen"></div>
-                <div className="max-w-2xl relative z-10">
-                    <span className="text-accent font-bold uppercase tracking-widest mb-3 block text-sm">Unser Portfolio</span>
-                    <h2 className="text-4xl md:text-5xl font-medium text-white tracking-tight">Dienstleistungen für Profis.</h2>
+    <>
+        <section id="services" className="py-32 bg-transparent relative overflow-hidden">
+            {/* Colorful Ambient Backgrounds for the whole section */}
+            <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-cyan-950/20 blur-[120px] rounded-full pointer-events-none mix-blend-screen"></div>
+            <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-purple-950/20 blur-[120px] rounded-full pointer-events-none mix-blend-screen"></div>
+
+            <div className="container mx-auto px-6 relative z-10">
+                <div className="flex flex-col md:flex-row justify-between items-end mb-20">
+                    <div className="max-w-2xl relative z-10">
+                        <motion.div 
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            className="flex items-center gap-3 mb-4"
+                        >
+                            <div className="h-[2px] w-12 bg-gradient-to-r from-accent to-transparent"></div>
+                            <span className="text-accent font-bold uppercase tracking-widest text-sm">Unser Portfolio</span>
+                        </motion.div>
+                        <h2 className="text-4xl md:text-6xl font-medium text-white tracking-tight leading-tight">
+                            Dienstleistungen <br/>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-gray-600">für Profis.</span>
+                        </h2>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {SERVICES.map((service, index) => {
+                    const IconComponent = icons[service.id] || Layers;
+                    return (
+                        <motion.div 
+                            key={service.id} 
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: index * 0.1, duration: 0.5 }}
+                            className={`group relative rounded-3xl p-8 border border-white/5 bg-[#0a0a0a] overflow-hidden hover:-translate-y-2 transition-all duration-500 hover:shadow-2xl ${service.theme.border}`}
+                        >
+                            {/* Dynamic Background Glow */}
+                            <div className={`absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br ${service.theme.glow} blur-[80px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700`}></div>
+                            
+                            {/* Subtle Permanent Tint */}
+                            <div className={`absolute inset-0 bg-gradient-to-b from-transparent to-black/80 z-0`}></div>
+                            <div className={`absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 bg-gradient-to-br ${service.theme.gradient}`}></div>
+
+                            <div className="relative z-10 flex flex-col h-full justify-between min-h-[380px]">
+                                <div className="flex justify-between items-start mb-6">
+                                    <div className={`p-3 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 group-hover:scale-110 transition-transform duration-500`}>
+                                        <IconComponent size={28} className={service.theme.primary} strokeWidth={1.5} />
+                                    </div>
+                                    <span className="text-white/10 font-bold text-6xl font-sans tracking-tighter absolute top-4 right-4 group-hover:text-white/20 transition-colors duration-500">0{index + 1}</span>
+                                </div>
+
+                                <div className="relative">
+                                    {/* 3D Icon Floating */}
+                                    <div className="absolute -right-4 bottom-24 w-28 h-28 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-50 transition-all duration-500 pointer-events-none z-0">
+                                        <img src={service.image} alt={service.title} className="w-full h-full object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)]" />
+                                    </div>
+
+                                    <h3 className={`text-2xl font-bold text-white mb-4 group-hover:translate-x-1 transition-transform duration-300 relative z-10`}>
+                                        {service.title.split('&').map((part, i) => (
+                                            <span key={i} className="block">{part} {i === 0 && '&'}</span>
+                                        ))}
+                                    </h3>
+                                    <p className="text-gray-400 text-sm leading-relaxed mb-8 group-hover:text-gray-300 transition-colors relative z-10">
+                                        {service.description}
+                                    </p>
+                                </div>
+                                
+                                <div className="mt-auto">
+                                    <div className="h-[1px] w-full bg-white/10 mb-4 group-hover:bg-white/20 transition-colors"></div>
+                                    <button 
+                                        onClick={() => setSelectedService(service)}
+                                        className={`flex items-center gap-2 text-sm font-bold uppercase tracking-wider ${service.theme.primary} group-hover:gap-4 transition-all w-full text-left`}
+                                    >
+                                        Details <ArrowRight size={16} />
+                                    </button>
+                                </div>
+                            </div>
+                        </motion.div>
+                    );
+                    })}
                 </div>
             </div>
+        </section>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-l border-t border-white/10 bg-[#000]/40 backdrop-blur-sm">
-                {SERVICES.map((service, index) => {
-                   const IconComponent = icons[service.id] || Layers;
-                   return (
-                    <div 
-                        key={service.id} 
-                        className="group relative p-10 border-r border-b border-white/10 hover:bg-[#0A0A0A]/60 transition-colors duration-500 min-h-[400px] flex flex-col justify-between"
+        {/* SATISFYING SERVICE MODAL */}
+        <AnimatePresence>
+            {selectedService && (
+                <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    onClick={() => setSelectedService(null)}
+                    className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md flex items-center justify-center p-4"
+                >
+                    <motion.div 
+                        layoutId={`service-${selectedService.id}`}
+                        initial={{ scale: 0.8, opacity: 0, y: 50 }}
+                        animate={{ scale: 1, opacity: 1, y: 0 }}
+                        exit={{ scale: 0.8, opacity: 0, y: 50 }}
+                        transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                        onClick={(e) => e.stopPropagation()}
+                        className={`w-full max-w-lg bg-[#0f0f0f] border rounded-3xl overflow-hidden shadow-2xl relative ${selectedService.theme.border ? selectedService.theme.border.replace('group-hover:', '') : 'border-white/10'}`}
+                        style={{ borderColor: 'rgba(255,255,255,0.1)' }}
                     >
-                        <div>
-                            <div className="flex justify-between items-start mb-8">
-                                <div className="p-3 bg-white/5 rounded-lg text-gray-400 group-hover:text-accent group-hover:bg-accent/10 transition-all duration-300">
-                                    <IconComponent size={24} strokeWidth={1.5} />
+                        {/* Header Background */}
+                        <div className={`absolute top-0 inset-x-0 h-32 bg-gradient-to-b ${selectedService.theme.gradient} opacity-20`}></div>
+                        
+                        <div className="relative p-8">
+                            <button 
+                                onClick={() => setSelectedService(null)}
+                                className="absolute top-4 right-4 p-2 bg-black/20 hover:bg-black/40 rounded-full text-white/50 hover:text-white transition-colors"
+                            >
+                                <X size={20} />
+                            </button>
+
+                            <div className="mb-6">
+                                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${selectedService.theme.gradient} p-0.5 mb-6 shadow-lg`}>
+                                   <div className="w-full h-full bg-black rounded-xl flex items-center justify-center">
+                                      {/* Icon Mapping again strictly for modal */}
+                                      {(() => {
+                                        const Icon = icons[selectedService.id] || Layers;
+                                        return <Icon size={32} className={selectedService.theme.primary} />;
+                                      })()}
+                                   </div>
                                 </div>
-                                <span className="text-gray-700 font-mono text-sm">0{index + 1}</span>
+                                
+                                <h3 className="text-3xl font-bold text-white mb-2">{selectedService.title}</h3>
+                                <p className="text-gray-400 leading-relaxed">{selectedService.description}</p>
                             </div>
-                            <h3 className="text-xl font-bold text-white mb-4 group-hover:translate-x-1 transition-transform duration-300">{service.title}</h3>
-                            <p className="text-gray-500 text-sm leading-relaxed mb-8">{service.description}</p>
+
+                            <div className="space-y-3 mb-8">
+                                <div className="text-xs font-bold uppercase tracking-widest text-white/30 mb-2">Leistungsumfang</div>
+                                {selectedService.items.map((item, i) => (
+                                    <motion.div 
+                                        key={i}
+                                        initial={{ opacity: 0, x: -20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: 0.1 + (i * 0.05) }}
+                                        className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5"
+                                    >
+                                        <Check size={16} className={selectedService.theme.primary} />
+                                        <span className="text-gray-200 text-sm font-medium">{item}</span>
+                                    </motion.div>
+                                ))}
+                            </div>
+
+                            <div className="flex gap-4">
+                                <button 
+                                    onClick={() => setSelectedService(null)}
+                                    className="flex-1 py-4 rounded-xl font-bold text-gray-400 hover:text-white hover:bg-white/5 transition-colors"
+                                >
+                                    Schließen
+                                </button>
+                                <a 
+                                    href="#contact"
+                                    onClick={() => setSelectedService(null)}
+                                    className={`flex-1 py-4 rounded-xl font-bold text-black flex items-center justify-center gap-2 bg-gradient-to-r ${selectedService.theme.gradient} hover:scale-[1.02] transition-transform shadow-lg`}
+                                >
+                                    Anfragen <ArrowRight size={18} />
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                   );
-                })}
-            </div>
-        </div>
-    </section>
+                    </motion.div>
+                </motion.div>
+            )}
+        </AnimatePresence>
+    </>
   );
 };
 
@@ -310,12 +451,18 @@ const ValuesSection = () => {
                         <Anchor className="text-gray-600 group-hover:text-accent transition-colors" size={32} />
                         <h3 className="text-xl font-bold text-white">100% Hamburg</h3>
                     </div>
+                    <p className="text-gray-400 leading-relaxed">
+                        Wir kommen von hier, wir bleiben hier. Kurze Wege, schnelle Reaktion und ein Netzwerk in der ganzen Stadt.
+                    </p>
                 </div>
                 <div className="md:col-span-2 bg-[#111]/80 backdrop-blur-sm border border-white/5 rounded-3xl p-8 hover:bg-[#1a1a1a] transition-colors group">
                     <div className="flex items-center gap-4 mb-6">
                         <ShieldCheck className="text-gray-600 group-hover:text-accent transition-colors" size={32} />
                         <h3 className="text-xl font-bold text-white">Kein Pfusch</h3>
                     </div>
+                    <p className="text-gray-400 leading-relaxed">
+                        Wir arbeiten sauber oder gar nicht. Qualitätssicherung ist bei uns Chefsache – jeden Tag, auf jeder Baustelle.
+                    </p>
                 </div>
             </div>
         </div>
@@ -503,7 +650,7 @@ function App() {
       <Hero onOpenWizard={() => setIsWizardOpen(true)} />
       <IntroSection />
       <ServicesSection />
-      <BudgetCalculator />
+      <LeadGenQuiz />
       <ValuesSection />
       <ProjectShowcase />
       <ContactTerminal />
