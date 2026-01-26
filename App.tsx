@@ -16,28 +16,25 @@ import { RevealText } from './components/ui/RevealText';
 import Lenis from 'lenis';
 
 const GlobalBackground = () => {
-    // PERFORMANCE OPTIMIZATION:
-    // Replaced Framer Motion loops with CSS Animations (defined in index.html/tailwind config)
-    // This moves the animation to the compositor thread, reducing main thread blocking.
+    // AESTHETIC UPGRADE: "Gemini" Style Deep Mesh Gradient
+    // darker, subtler, and more blended.
     return (
-        <div className="fixed inset-0 z-[-1] overflow-hidden bg-black transform-gpu pointer-events-none">
-             {/* 1. Primary Emerald Nebula (Top Left) */}
+        <div className="fixed inset-0 z-[-1] overflow-hidden bg-[#050505] transform-gpu pointer-events-none">
+             {/* 1. Deep Central Abyss */}
+             <div className="absolute top-[20%] left-[20%] w-[60vw] h-[60vw] bg-emerald-950/20 rounded-full blur-[120px] mix-blend-color-dodge animate-pulse-slow"></div>
+
+             {/* 2. Top Right Ethereal Glow */}
              <div 
-                className="absolute top-[-20%] left-[-10%] w-[90vw] h-[85vw] bg-emerald-950 rounded-full blur-[100px] mix-blend-screen opacity-[0.05] animate-blob-1"
-             ></div>
-             
-             {/* 2. Secondary Teal Aurora (Top Right) */}
-             <div 
-                className="absolute top-[-10%] right-[-15%] w-[80vw] h-[80vw] bg-teal-950 rounded-full blur-[120px] mix-blend-screen opacity-[0.04] animate-blob-2"
+                className="absolute top-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-gradient-to-b from-teal-900/10 to-transparent rounded-full blur-[100px] mix-blend-screen opacity-40"
              ></div>
 
-             {/* 3. Deep Green Foundation (Bottom) */}
+             {/* 3. Bottom Left Foundation */}
              <div 
-                className="absolute bottom-[-30%] left-[10%] w-[120vw] h-[90vw] bg-emerald-950 rounded-full blur-[150px] opacity-[0.05] mix-blend-screen"
+                className="absolute bottom-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-emerald-900/10 rounded-full blur-[100px] opacity-30"
              ></div>
 
              {/* Noise Texture - Static is faster */}
-             <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}></div>
+             <div className="absolute inset-0 opacity-[0.04] mix-blend-overlay" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}></div>
         </div>
     )
 }
@@ -65,10 +62,9 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
             decoding="sync"
           />
           
-          {/* Removed darkening overlay as requested */}
-          
-          {/* Smooth Fade to Black at Bottom only (for text readability) */}
-          <div className="absolute bottom-0 left-0 w-full h-96 bg-gradient-to-t from-[#000000] via-[#050505]/80 to-transparent"></div>
+          {/* Gemini-Style Gradient Overlay: Smooth transition to dark */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-[#050505]"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/60 to-transparent"></div>
       </motion.div>
 
       <motion.div style={{ y: y2 }} className="container mx-auto px-6 relative z-10 flex flex-col items-center text-center -mt-24 will-change-transform">
@@ -85,12 +81,16 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
 
         {/* Headline Container */}
         <div className="relative -mt-14 mb-6">
+            {/* GEMINI GLOW BEHIND TEXT */}
+            <div className="absolute inset-0 bg-emerald-500/10 blur-[100px] rounded-full pointer-events-none mix-blend-screen transform-gpu"></div>
+
             <h1 className="text-3xl md:text-5xl text-white tracking-tight max-w-5xl leading-tight relative z-20 flex flex-wrap justify-center gap-x-3 items-baseline">
                 <RevealText delay={0.1} className="inline-block">
-                    <span className="font-serif italic font-semibold tracking-normal text-white">Wir machen das.</span>
+                    <span className="font-serif italic font-semibold tracking-normal text-white/90">Wir machen das.</span>
                 </RevealText>
                 <RevealText delay={0.2} className="inline-block">
-                    <span className="font-sans font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-100 drop-shadow-[0_0_15px_rgba(34,197,94,0.05)]">
+                    {/* UPDATED TEXT GRADIENT: Subtle White to Emerald Shift */}
+                    <span className="font-sans font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-white via-emerald-100 to-emerald-400 drop-shadow-sm">
                         Einfach & Sauber.
                     </span>
                 </RevealText>
@@ -103,7 +103,7 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
         >
-            <p className="text-lg text-gray-300 max-w-2xl mb-10 leading-relaxed font-medium relative z-20">
+            <p className="text-lg text-gray-400 max-w-2xl mb-10 leading-relaxed font-medium relative z-20">
                 Hansetool ist Ihr Partner für Reinigung, Hausmeister- und Handwerksservice in Hamburg. 
                 Buchen Sie direkt online.
             </p>
@@ -158,7 +158,8 @@ const IntroSection = () => {
   return (
     <section id="about" className="py-24 bg-transparent overflow-hidden scroll-mt-28" ref={ref}>
       <div className="container mx-auto px-6 relative">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-950/10 blur-[100px] pointer-events-none mix-blend-screen"></div>
+        {/* Subtle Side Glow */}
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-950/10 blur-[120px] pointer-events-none mix-blend-screen transform-gpu"></div>
 
         <div className="flex items-center gap-4 mb-16 relative z-10">
             <RevealText>
@@ -219,9 +220,11 @@ const ServicesSection = () => {
   return (
     <>
         <section id="services" className="py-32 bg-transparent relative overflow-hidden scroll-mt-28">
-            {/* Colorful Ambient Backgrounds for the whole section - Optimized with transform-gpu */}
-            <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-cyan-950/20 blur-[120px] rounded-full pointer-events-none mix-blend-screen transform-gpu will-change-transform"></div>
-            <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-purple-950/20 blur-[120px] rounded-full pointer-events-none mix-blend-screen transform-gpu will-change-transform"></div>
+            {/* GEMINI-STYLE AMBIENT BACKDROP */}
+            {/* Left: Cool Cyan-Emerald blend */}
+            <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-gradient-to-r from-emerald-950/20 to-teal-950/20 blur-[150px] rounded-full pointer-events-none mix-blend-color-dodge transform-gpu will-change-transform"></div>
+            {/* Right: Deeper Purple-Gray hint for contrast */}
+            <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-[#1a1a2e]/30 blur-[150px] rounded-full pointer-events-none mix-blend-screen transform-gpu will-change-transform"></div>
 
             <div className="container mx-auto px-6 relative z-10">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-20">
@@ -238,7 +241,8 @@ const ServicesSection = () => {
                         <RevealText>
                             <h2 className="text-4xl md:text-6xl font-medium text-white tracking-tight leading-tight">
                                 Dienstleistungen <br/>
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-gray-600">für Profis.</span>
+                                {/* Refined Gradient Text */}
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-500">für Profis.</span>
                             </h2>
                         </RevealText>
                     </div>
@@ -400,12 +404,14 @@ const ValuesSection = () => {
 
         <div className="container mx-auto px-6 relative z-10">
             <div className="mb-20 relative">
-                <div className="absolute top-0 left-0 w-[400px] h-[200px] bg-teal-950/10 blur-[100px] pointer-events-none mix-blend-screen"></div>
+                {/* GEMINI GRADIENT SPOT */}
+                <div className="absolute top-0 left-0 w-[400px] h-[300px] bg-gradient-to-r from-teal-900/20 to-emerald-900/20 blur-[100px] pointer-events-none mix-blend-screen"></div>
+                
                 <span className="text-accent font-bold uppercase tracking-widest mb-2 block relative z-10">Die DNA</span>
                 <RevealText>
                     <h2 className="text-5xl md:text-7xl font-bold text-white max-w-4xl tracking-tight relative z-10">
                         Keine Floskeln.<br/>
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-emerald-900">Echtes Handwerk.</span>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-emerald-400 to-emerald-600">Echtes Handwerk.</span>
                     </h2>
                 </RevealText>
             </div>
