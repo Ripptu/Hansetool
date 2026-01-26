@@ -5,8 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hansetool - Wir machen das.</title>
     
+    <!-- CRITICAL PERFORMANCE: Preconnect to Image CDNs -->
+    <link rel="preconnect" href="https://i.postimg.cc" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link rel="preconnect" href="https://cdn-icons-png.flaticon.com" crossorigin>
+
     <!-- CRITICAL PERFORMANCE: Preload Hero Image & Logo -->
-    <link rel="preload" as="image" href="https://i.postimg.cc/Sm6ys74N/hf-20260122-222900-748554a2-a670-43b9-8666-2d03312eec39.png" fetchpriority="high">
+    <link rel="preload" as="image" href="https://i.postimg.cc/vM6gf6z6/webp.webp" fetchpriority="high">
     <link rel="preload" as="image" href="https://i.postimg.cc/VLVz13zy/nur-logo.png" fetchpriority="high">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,11 +37,22 @@
             },
             animation: {
               'scroll': 'scroll 40s linear infinite',
+              'blob-1': 'blob1 25s infinite alternate',
+              'blob-2': 'blob2 30s infinite alternate',
+              'pulse-slow': 'pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
             },
             keyframes: {
               scroll: {
                 '0%': { transform: 'translateX(0)' },
                 '100%': { transform: 'translateX(-50%)' },
+              },
+              blob1: {
+                '0%': { transform: 'translate(0, 0) scale(1)' },
+                '100%': { transform: 'translate(20px, -20px) scale(1.1)' },
+              },
+              blob2: {
+                '0%': { transform: 'translate(0, 0) scale(1)' },
+                '100%': { transform: 'translate(-20px, 20px) scale(1.15)' },
               }
             }
           }
@@ -48,6 +64,13 @@
         background-color: #050505;
         color: #ffffff;
       }
+      /* Native Smooth Scroll for Mobile Only (Lenis handles Desktop) */
+      @media (max-width: 1024px) {
+        html {
+          scroll-behavior: smooth;
+        }
+      }
+      
       /* Custom Scrollbar */
       ::-webkit-scrollbar {
         width: 10px;

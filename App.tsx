@@ -16,33 +16,20 @@ import { RevealText } from './components/ui/RevealText';
 import Lenis from 'lenis';
 
 const GlobalBackground = () => {
+    // PERFORMANCE OPTIMIZATION:
+    // Replaced Framer Motion loops with CSS Animations (defined in index.html/tailwind config)
+    // This moves the animation to the compositor thread, reducing main thread blocking.
     return (
         <div className="fixed inset-0 z-[-1] overflow-hidden bg-black transform-gpu pointer-events-none">
-             {/* 
-                Optimized Background:
-                - Reduced animation complexity for better FPS
-                - Removed unnecessary layers
-             */}
-             
              {/* 1. Primary Emerald Nebula (Top Left) */}
-             <motion.div 
-                animate={{ 
-                    scale: [1, 1.1, 1], 
-                    opacity: [0.05, 0.08, 0.05],
-                }}
-                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                className="absolute top-[-20%] left-[-10%] w-[90vw] h-[85vw] bg-emerald-950 rounded-full blur-[100px] mix-blend-screen will-change-transform"
-             ></motion.div>
+             <div 
+                className="absolute top-[-20%] left-[-10%] w-[90vw] h-[85vw] bg-emerald-950 rounded-full blur-[100px] mix-blend-screen opacity-[0.05] animate-blob-1"
+             ></div>
              
              {/* 2. Secondary Teal Aurora (Top Right) */}
-             <motion.div 
-                animate={{ 
-                    scale: [1, 1.15, 1], 
-                    x: [0, -20, 0],
-                }}
-                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                className="absolute top-[-10%] right-[-15%] w-[80vw] h-[80vw] bg-teal-950 rounded-full blur-[120px] opacity-[0.04] mix-blend-screen will-change-transform"
-             ></motion.div>
+             <div 
+                className="absolute top-[-10%] right-[-15%] w-[80vw] h-[80vw] bg-teal-950 rounded-full blur-[120px] mix-blend-screen opacity-[0.04] animate-blob-2"
+             ></div>
 
              {/* 3. Deep Green Foundation (Bottom) */}
              <div 
@@ -63,23 +50,24 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center pt-0 pb-0 overflow-hidden">
       
-      {/* Background Image Layer - INSTANT LOADING OPTIMIZATION: Removed AnimatePresence and Fade In */}
+      {/* Background Image Layer - INSTANT LOADING OPTIMIZATION */}
       <motion.div 
         style={{ y: y1 }} 
         className="absolute inset-0 z-0 will-change-transform"
       >
+          {/* OPTIMIZED IMAGE: Custom WebP image provided */}
           <img 
-            src="https://i.postimg.cc/Sm6ys74N/hf-20260122-222900-748554a2-a670-43b9-8666-2d03312eec39.png" 
+            src="https://i.postimg.cc/vM6gf6z6/webp.webp" 
             alt="Hansetool Work" 
             className="w-full h-full object-cover scale-105"
             fetchPriority="high"
             loading="eager"
             decoding="sync"
           />
-          {/* Simple darkening overlay */}
-          <div className="absolute inset-0 bg-black/40"></div>
           
-          {/* Smooth Fade to Black at Bottom */}
+          {/* Removed darkening overlay as requested */}
+          
+          {/* Smooth Fade to Black at Bottom only (for text readability) */}
           <div className="absolute bottom-0 left-0 w-full h-96 bg-gradient-to-t from-[#000000] via-[#050505]/80 to-transparent"></div>
       </motion.div>
 
@@ -231,9 +219,9 @@ const ServicesSection = () => {
   return (
     <>
         <section id="services" className="py-32 bg-transparent relative overflow-hidden scroll-mt-28">
-            {/* Colorful Ambient Backgrounds for the whole section */}
-            <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-cyan-950/20 blur-[120px] rounded-full pointer-events-none mix-blend-screen"></div>
-            <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-purple-950/20 blur-[120px] rounded-full pointer-events-none mix-blend-screen"></div>
+            {/* Colorful Ambient Backgrounds for the whole section - Optimized with transform-gpu */}
+            <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-cyan-950/20 blur-[120px] rounded-full pointer-events-none mix-blend-screen transform-gpu will-change-transform"></div>
+            <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-purple-950/20 blur-[120px] rounded-full pointer-events-none mix-blend-screen transform-gpu will-change-transform"></div>
 
             <div className="container mx-auto px-6 relative z-10">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-20">
@@ -241,6 +229,7 @@ const ServicesSection = () => {
                         <motion.div 
                             initial={{ opacity: 0, x: -20 }}
                             whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
                             className="flex items-center gap-3 mb-4"
                         >
                             <div className="h-[2px] w-12 bg-gradient-to-r from-accent to-transparent"></div>
@@ -263,11 +252,12 @@ const ServicesSection = () => {
                             key={service.id} 
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: index * 0.1, duration: 0.5 }}
-                            className={`group relative rounded-3xl p-8 border border-white/5 bg-[#0a0a0a] overflow-hidden hover:-translate-y-2 transition-all duration-500 hover:shadow-2xl ${service.theme.border}`}
+                            viewport={{ once: true, margin: "-50px" }} // OPTIMIZATION: Only animate once to prevent re-loading on scroll
+                            transition={{ delay: index * 0.1, duration: 0.5, ease: "easeOut" }}
+                            className={`group relative rounded-3xl p-8 border border-white/5 bg-[#0a0a0a] overflow-hidden hover:-translate-y-2 transition-all duration-500 hover:shadow-2xl ${service.theme.border} transform-gpu`}
                         >
-                            {/* Dynamic Background Glow */}
-                            <div className={`absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br ${service.theme.glow} blur-[80px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700`}></div>
+                            {/* Dynamic Background Glow - Optimized */}
+                            <div className={`absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br ${service.theme.glow} blur-[80px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none will-change-[opacity]`}></div>
                             
                             {/* Subtle Permanent Tint */}
                             <div className={`absolute inset-0 bg-gradient-to-b from-transparent to-black/80 z-0`}></div>
@@ -560,7 +550,14 @@ const ProjectShowcase = () => {
                             transition={{ delay: idx * 0.1 }}
                             className="group relative h-[450px] rounded-xl overflow-hidden cursor-pointer border border-white/5"
                         >
-                            <img src={project.image} alt={project.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 filter grayscale group-hover:grayscale-0" loading="lazy" />
+                            {/* OPTIMIZED IMAGE LOADING for Showcases */}
+                            <img 
+                                src={`${project.image}&w=600&q=75&auto=format`} 
+                                alt={project.title} 
+                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 filter grayscale group-hover:grayscale-0" 
+                                loading="lazy"
+                                decoding="async"
+                            />
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90 group-hover:opacity-60 transition-opacity duration-500"></div>
                             <div className="absolute inset-0 p-6 flex flex-col justify-between">
                                 <div className="flex justify-between items-start">
@@ -610,7 +607,7 @@ const ContactTerminal = () => {
                         </div>
                         <div className="lg:col-span-2 bg-[#1a1a1a] relative overflow-hidden group">
                              <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
-                             <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-30 group-hover:scale-105 transition-transform duration-1000" alt="Hamburg Map Texture" loading="lazy" />
+                             <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=600&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-30 group-hover:scale-105 transition-transform duration-1000" alt="Hamburg Map Texture" loading="lazy" />
                              <div className="absolute inset-0 flex flex-col justify-end p-10 bg-gradient-to-t from-black via-transparent to-transparent">
                                 <div className="border-l-4 border-accent pl-6">
                                     <h3 className="text-white text-2xl font-bold mb-2">Zentrale Hamburg</h3>
@@ -627,9 +624,8 @@ const ContactTerminal = () => {
 function App() {
   const [isWizardOpen, setIsWizardOpen] = useState(false);
   const [isEmergencyMode, setIsEmergencyMode] = useState(false);
-  // Removed isLoading state completely for instant render
   
-  // Smooth Scroll Hook (Lenis) - Optimized for performance
+  // Smooth Scroll Hook (Lenis) - Optimized for performance & Anchor Link Handling
   useEffect(() => {
     if (typeof window !== 'undefined' && window.matchMedia("(min-width: 1024px)").matches) {
        const lenis = new Lenis({
@@ -643,6 +639,24 @@ function App() {
          wheelMultiplier: 1.2, // Faster scrolling
        });
 
+       // Intercept all anchor links for Lenis smooth scroll
+       const handleAnchorClick = (e: MouseEvent) => {
+         const target = e.target as HTMLElement;
+         const anchor = target.closest('a');
+         if (anchor) {
+           const href = anchor.getAttribute('href');
+           if (href && href.startsWith('#') && href.length > 1) {
+             e.preventDefault();
+             const targetEl = document.querySelector(href);
+             if (targetEl) {
+               lenis.scrollTo(targetEl);
+             }
+           }
+         }
+       };
+       
+       document.addEventListener('click', handleAnchorClick);
+
        function raf(time: number) {
          lenis.raf(time);
          requestAnimationFrame(raf);
@@ -652,6 +666,7 @@ function App() {
        
        return () => {
          lenis.destroy();
+         document.removeEventListener('click', handleAnchorClick);
        }
     }
   }, []);

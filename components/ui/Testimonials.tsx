@@ -97,9 +97,10 @@ const TestimonialsColumn = (props: {
                     <img
                       width={40}
                       height={40}
-                      src={image}
+                      src={image} // Images already have sizing params from the constant above
                       alt={`Avatar of ${name}`}
-                      className="h-10 w-10 rounded-full object-cover ring-2 ring-gray-border group-hover:ring-accent transition-all duration-300"
+                      loading="lazy"
+                      className="h-10 w-10 rounded-full object-cover ring-2 ring-gray-border group-hover:ring-accent transition-all duration-300 bg-gray-800"
                     />
                     <div className="flex flex-col">
                       <cite className="font-bold not-italic text-white text-sm">
