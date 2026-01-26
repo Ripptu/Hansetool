@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hansetool - Wir machen das.</title>
+    
+    <!-- CRITICAL PERFORMANCE: Preload Hero Image & Logo -->
+    <link rel="preload" as="image" href="https://i.postimg.cc/Sm6ys74N/hf-20260122-222900-748554a2-a670-43b9-8666-2d03312eec39.png" fetchpriority="high">
+    <link rel="preload" as="image" href="https://i.postimg.cc/VLVz13zy/nur-logo.png" fetchpriority="high">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
@@ -67,6 +72,13 @@
       .no-scrollbar {
         -ms-overflow-style: none;
         scrollbar-width: none;
+      }
+      
+      /* Hardware Acceleration Class */
+      .gpu-accelerated {
+        transform: translateZ(0);
+        will-change: transform, opacity;
+        backface-visibility: hidden;
       }
     </style>
   <script type="importmap">

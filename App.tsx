@@ -10,263 +10,122 @@ import { InquiryWizard } from './components/InquiryWizard';
 import { DirectDispatch } from './components/DirectDispatch';
 import { LeadGenQuiz } from './components/LeadGenQuiz';
 import { Navbar } from './components/Navbar';
+import { Marquee } from './components/ui/Marquee';
+import { RevealText } from './components/ui/RevealText';
 // @ts-ignore
 import Lenis from 'lenis';
 
 const GlobalBackground = () => {
     return (
-        <div className="fixed inset-0 z-[-1] overflow-hidden bg-black transform-gpu">
+        <div className="fixed inset-0 z-[-1] overflow-hidden bg-black transform-gpu pointer-events-none">
              {/* 
-                Pitch Black Aesthetic Implementation:
-                - Opacity reduced to single digits (0.04 - 0.08).
-                - Only using 950 shades.
-                - Result is 95% black with a "whisper" of emerald.
+                Optimized Background:
+                - Reduced animation complexity for better FPS
+                - Removed unnecessary layers
              */}
              
              {/* 1. Primary Emerald Nebula (Top Left) */}
              <motion.div 
                 animate={{ 
-                    scale: [1, 1.15, 1], 
-                    rotate: [0, 5, 0],
-                    x: [0, 20, 0],
+                    scale: [1, 1.1, 1], 
+                    opacity: [0.05, 0.08, 0.05],
                 }}
-                transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-[-20%] left-[-10%] w-[90vw] h-[85vw] bg-emerald-950 rounded-full blur-[140px] opacity-[0.08] mix-blend-screen will-change-transform"
+                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                className="absolute top-[-20%] left-[-10%] w-[90vw] h-[85vw] bg-emerald-950 rounded-full blur-[100px] mix-blend-screen will-change-transform"
              ></motion.div>
              
              {/* 2. Secondary Teal Aurora (Top Right) */}
              <motion.div 
                 animate={{ 
-                    scale: [1, 1.2, 1], 
-                    x: [0, -40, 0],
-                    y: [0, 20, 0]
+                    scale: [1, 1.15, 1], 
+                    x: [0, -20, 0],
                 }}
-                transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-[-10%] right-[-15%] w-[80vw] h-[80vw] bg-teal-950 rounded-full blur-[160px] opacity-[0.04] mix-blend-screen will-change-transform"
+                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                className="absolute top-[-10%] right-[-15%] w-[80vw] h-[80vw] bg-teal-950 rounded-full blur-[120px] opacity-[0.04] mix-blend-screen will-change-transform"
              ></motion.div>
 
              {/* 3. Deep Green Foundation (Bottom) */}
-             <motion.div 
-                animate={{ 
-                     opacity: [0.03, 0.06, 0.03],
-                     scale: [1, 1.05, 1]
-                }}
-                transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute bottom-[-30%] left-[10%] w-[120vw] h-[90vw] bg-emerald-950 rounded-full blur-[200px] opacity-[0.05] mix-blend-screen will-change-[opacity,transform]"
-             ></motion.div>
+             <div 
+                className="absolute bottom-[-30%] left-[10%] w-[120vw] h-[90vw] bg-emerald-950 rounded-full blur-[150px] opacity-[0.05] mix-blend-screen"
+             ></div>
 
-             {/* 4. Wandering Highlight */}
-             <motion.div
-                animate={{
-                    x: [-50, 50, -50],
-                    y: [-20, 20, -20],
-                    opacity: [0.01, 0.02, 0.01]
-                }}
-                transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                className="absolute top-[20%] left-[30%] w-[40vw] h-[40vw] bg-emerald-900 rounded-full blur-[120px] mix-blend-overlay pointer-events-none"
-             ></motion.div>
-
-             {/* Noise Texture - extremely subtle */}
-             <div className="absolute inset-0 opacity-[0.02] pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}></div>
+             {/* Noise Texture - Static is faster */}
+             <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}></div>
         </div>
     )
 }
 
-const Preloader = ({ onComplete }: { onComplete: () => void }) => {
-    const [progress, setProgress] = useState(0);
-    const [isFinished, setIsFinished] = useState(false);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setProgress((prev) => {
-                // S-Curve Loading for "Satisfying" feel
-                const increment = prev < 30 ? 2 : prev < 70 ? 4 : prev < 90 ? 2 : 1;
-                const next = prev + increment;
-                if (next >= 100) {
-                    clearInterval(interval);
-                    setTimeout(() => setIsFinished(true), 400); // Wait a bit at 100%
-                    setTimeout(onComplete, 1200); // Allow exit animation to play
-                    return 100;
-                }
-                return next;
-            });
-        }, 30);
-
-        return () => clearInterval(interval);
-    }, [onComplete]);
-
-    return (
-        <motion.div
-            className="fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center overflow-hidden"
-            initial={{ opacity: 1 }}
-            animate={isFinished ? { 
-                opacity: 0,
-                pointerEvents: "none",
-                filter: "blur(20px)",
-                scale: 1.1
-            } : { 
-                opacity: 1,
-                scale: 1,
-                filter: "blur(0px)"
-            }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        >
-            {/* Ambient Background Glow */}
-            <div className="absolute inset-0 flex items-center justify-center">
-                 <motion.div 
-                    animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                    className="w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] bg-emerald-500/10 rounded-full blur-[120px]"
-                 />
-            </div>
-
-            <div className="relative w-full h-full flex flex-col items-center justify-center px-6">
-                
-                {/* MASSIVE LOGO */}
-                <motion.div
-                    initial={{ scale: 0.9, opacity: 0, y: 20 }}
-                    animate={{ scale: 1, opacity: 1, y: 0 }}
-                    transition={{ duration: 1, ease: "easeOut" }}
-                    className="relative z-10 mb-12 md:mb-16"
-                >
-                    <img
-                        src="https://i.postimg.cc/VLVz13zy/nur-logo.png"
-                        alt="Hansetool"
-                        className="w-[70vw] md:w-[500px] max-w-full brightness-0 invert drop-shadow-2xl"
-                    />
-                    
-                    {/* Shimmer Effect over Logo */}
-                    <motion.div 
-                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12"
-                        initial={{ x: '-150%' }}
-                        animate={{ x: '150%' }}
-                        transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1, ease: "easeInOut" }}
-                    />
-                </motion.div>
-
-                {/* Cinematic Counter */}
-                <div className="relative z-10 flex flex-col items-center">
-                    <div className="flex items-baseline gap-1">
-                        <motion.span 
-                            className="text-6xl md:text-8xl font-bold text-white tracking-tighter tabular-nums"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                        >
-                            {Math.floor(progress)}
-                        </motion.span>
-                        <span className="text-xl md:text-2xl text-emerald-500 font-medium">%</span>
-                    </div>
-                    
-                    {/* Minimal Progress Line */}
-                    <div className="w-64 h-[1px] bg-white/10 mt-6 relative overflow-hidden">
-                        <motion.div 
-                            className="absolute left-0 top-0 bottom-0 bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.8)]"
-                            style={{ width: `${progress}%` }}
-                        />
-                    </div>
-                    
-                    <motion.span 
-                        className="text-xs text-gray-500 font-mono mt-2 uppercase tracking-[0.2em]"
-                        animate={{ opacity: [0.5, 1, 0.5] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                    >
-                        Initializing System
-                    </motion.span>
-                </div>
-            </div>
-
-            {/* Premium Glass Dock for Emergency Shortcuts */}
-            <motion.div 
-                initial={{ y: 100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.5, type: "spring", stiffness: 200, damping: 20 }}
-                className="absolute bottom-10 z-20"
-            >
-                <div className="flex items-center gap-2 p-2 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl">
-                     <a href="tel:+4915255905935" className="group flex flex-col items-center justify-center w-20 h-16 rounded-xl hover:bg-white/10 transition-colors cursor-pointer">
-                        <Phone size={20} className="text-white mb-1 group-hover:scale-110 transition-transform" />
-                        <span className="text-[10px] font-bold text-gray-400 group-hover:text-white uppercase">Anruf</span>
-                     </a>
-                     
-                     <div className="w-[1px] h-8 bg-white/10"></div>
-
-                     <a href="https://wa.me/4915255905935" className="group flex flex-col items-center justify-center w-20 h-16 rounded-xl hover:bg-[#25D366]/20 transition-colors cursor-pointer">
-                        <MessageCircle size={20} className="text-[#25D366] mb-1 group-hover:scale-110 transition-transform" />
-                        <span className="text-[10px] font-bold text-gray-400 group-hover:text-[#25D366] uppercase">WhatsApp</span>
-                     </a>
-                </div>
-                <p className="text-center text-[10px] text-gray-600 mt-3 uppercase tracking-wider font-medium">
-                    Warten überspringen
-                </p>
-            </motion.div>
-        </motion.div>
-    );
-};
-
 const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
+  const { scrollY } = useScroll();
+  const y1 = useTransform(scrollY, [0, 500], [0, 200]); // Parallax for image
+  const y2 = useTransform(scrollY, [0, 500], [0, -150]); // Parallax for text
+
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center pt-0 pb-0 overflow-hidden">
       
-      {/* Background Image Layer - Strictly only the Craftsman Image */}
-      <div className="absolute inset-0 z-0">
+      {/* Background Image Layer - INSTANT LOADING OPTIMIZATION: Removed AnimatePresence and Fade In */}
+      <motion.div 
+        style={{ y: y1 }} 
+        className="absolute inset-0 z-0 will-change-transform"
+      >
           <img 
             src="https://i.postimg.cc/Sm6ys74N/hf-20260122-222900-748554a2-a670-43b9-8666-2d03312eec39.png" 
             alt="Hansetool Work" 
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover scale-105"
             fetchPriority="high"
             loading="eager"
-            decoding="async"
+            decoding="sync"
           />
-          {/* Simple darkening overlay - No gradients on top, just readability */}
-          <div className="absolute inset-0 bg-black/50"></div>
+          {/* Simple darkening overlay */}
+          <div className="absolute inset-0 bg-black/40"></div>
           
-          {/* Smooth Fade to Black at Bottom - Increased height for smoother transition */}
+          {/* Smooth Fade to Black at Bottom */}
           <div className="absolute bottom-0 left-0 w-full h-96 bg-gradient-to-t from-[#000000] via-[#050505]/80 to-transparent"></div>
-      </div>
+      </motion.div>
 
-      <div className="container mx-auto px-6 relative z-10 flex flex-col items-center text-center -mt-24">
+      <motion.div style={{ y: y2 }} className="container mx-auto px-6 relative z-10 flex flex-col items-center text-center -mt-24 will-change-transform">
         
-        {/* Logo - Moved down approx 40px (mt-10) to create separation, +20px from before */}
+        {/* Logo - Optimized animation */}
         <motion.img 
-            initial={{ opacity: 0, scale: 0.9, y: -10 }}
+            initial={{ opacity: 0, scale: 0.95, y: -10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
             src="https://i.postimg.cc/VLVz13zy/nur-logo.png"
             alt="Hansetool Logo"
             className="w-full max-w-[320px] md:max-w-[650px] mt-10 mb-2 brightness-0 invert drop-shadow-2xl opacity-90 relative z-20"
         />
 
-        {/* Headline Container - Pulled up further (-mt-14) to maintain text position despite logo moving down */}
-        <div className="relative -mt-14">
-            <motion.h1 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="text-3xl md:text-5xl text-white mb-6 tracking-tight max-w-5xl leading-tight relative z-20 flex flex-wrap justify-center gap-x-3"
-            >
-            <span className="font-serif italic font-semibold tracking-normal text-white">Wir machen das.</span>
-            <span className="font-sans font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-100 drop-shadow-[0_0_15px_rgba(34,197,94,0.05)]">
-                Einfach & Sauber.
-            </span>
-            </motion.h1>
+        {/* Headline Container */}
+        <div className="relative -mt-14 mb-6">
+            <h1 className="text-3xl md:text-5xl text-white tracking-tight max-w-5xl leading-tight relative z-20 flex flex-wrap justify-center gap-x-3 items-baseline">
+                <RevealText delay={0.1} className="inline-block">
+                    <span className="font-serif italic font-semibold tracking-normal text-white">Wir machen das.</span>
+                </RevealText>
+                <RevealText delay={0.2} className="inline-block">
+                    <span className="font-sans font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-100 drop-shadow-[0_0_15px_rgba(34,197,94,0.05)]">
+                        Einfach & Sauber.
+                    </span>
+                </RevealText>
+            </h1>
         </div>
 
         {/* Subline */}
-        <motion.p 
-            initial={{ opacity: 0, y: 20 }}
+        <motion.div
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-lg text-gray-300 max-w-2xl mb-10 leading-relaxed font-medium relative z-20"
+            transition={{ delay: 0.3 }}
         >
-            Hansetool ist Ihr Partner für Reinigung, Hausmeister- und Handwerksservice in Hamburg. 
-            Buchen Sie direkt online.
-        </motion.p>
+            <p className="text-lg text-gray-300 max-w-2xl mb-10 leading-relaxed font-medium relative z-20">
+                Hansetool ist Ihr Partner für Reinigung, Hausmeister- und Handwerksservice in Hamburg. 
+                Buchen Sie direkt online.
+            </p>
+        </motion.div>
 
         {/* Buttons */}
         <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4 relative z-50"
         >
             <button 
@@ -294,7 +153,7 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
                 </div>
             </a>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 };
@@ -314,7 +173,9 @@ const IntroSection = () => {
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-950/10 blur-[100px] pointer-events-none mix-blend-screen"></div>
 
         <div className="flex items-center gap-4 mb-16 relative z-10">
-            <h2 className="text-3xl md:text-5xl font-medium text-white">Kein anonymer Dienstleister. Wir packen an.</h2>
+            <RevealText>
+                <h2 className="text-3xl md:text-5xl font-medium text-white">Kein anonymer Dienstleister. Wir packen an.</h2>
+            </RevealText>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-start relative z-10">
@@ -322,7 +183,8 @@ const IntroSection = () => {
                 <img 
                   src="https://i.postimg.cc/0xyrB3sK/hf-20260122-222646-1a20eff3-a60b-4f98-81bd-b116496e0b8a.jpg" 
                   alt="Hansetool Team" 
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" 
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                  loading="lazy" 
                 />
             </motion.div>
             <div className="space-y-8 sticky top-32">
@@ -384,10 +246,12 @@ const ServicesSection = () => {
                             <div className="h-[2px] w-12 bg-gradient-to-r from-accent to-transparent"></div>
                             <span className="text-accent font-bold uppercase tracking-widest text-sm">Unser Portfolio</span>
                         </motion.div>
-                        <h2 className="text-4xl md:text-6xl font-medium text-white tracking-tight leading-tight">
-                            Dienstleistungen <br/>
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-gray-600">für Profis.</span>
-                        </h2>
+                        <RevealText>
+                            <h2 className="text-4xl md:text-6xl font-medium text-white tracking-tight leading-tight">
+                                Dienstleistungen <br/>
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-gray-600">für Profis.</span>
+                            </h2>
+                        </RevealText>
                     </div>
                 </div>
 
@@ -548,10 +412,12 @@ const ValuesSection = () => {
             <div className="mb-20 relative">
                 <div className="absolute top-0 left-0 w-[400px] h-[200px] bg-teal-950/10 blur-[100px] pointer-events-none mix-blend-screen"></div>
                 <span className="text-accent font-bold uppercase tracking-widest mb-2 block relative z-10">Die DNA</span>
-                <h2 className="text-5xl md:text-7xl font-bold text-white max-w-4xl tracking-tight relative z-10">
-                    Keine Floskeln.<br/>
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-emerald-900">Echtes Handwerk.</span>
-                </h2>
+                <RevealText>
+                    <h2 className="text-5xl md:text-7xl font-bold text-white max-w-4xl tracking-tight relative z-10">
+                        Keine Floskeln.<br/>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-emerald-900">Echtes Handwerk.</span>
+                    </h2>
+                </RevealText>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-6 gap-6 auto-rows-[minmax(200px,auto)]">
@@ -569,18 +435,52 @@ const ValuesSection = () => {
                         </p>
                     </div>
                 </div>
-                <div className="md:col-span-2 md:row-span-2 bg-accent rounded-3xl p-10 flex flex-col justify-between text-black relative overflow-hidden group shadow-lg">
-                     <div className="absolute top-0 right-0 w-64 h-64 bg-white/20 rounded-full blur-3xl -mr-32 -mt-32"></div>
-                     <div className="bg-black/10 p-4 rounded-2xl w-fit">
-                        <Zap size={32} />
+                
+                {/* IMPROVED GREEN CARD: More texture, better layout */}
+                <div className="md:col-span-2 md:row-span-2 bg-accent rounded-3xl p-8 md:p-10 flex flex-col relative overflow-hidden group shadow-lg hover:shadow-accent/20 transition-all duration-500">
+                     {/* Grid Pattern Background */}
+                     <div className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: 'linear-gradient(#000 1.5px, transparent 1.5px), linear-gradient(90deg, #000 1.5px, transparent 1.5px)', backgroundSize: '40px 40px' }}></div>
+                     
+                     {/* Ambient Glow */}
+                     <div className="absolute top-0 right-0 w-80 h-80 bg-white/20 rounded-full blur-[80px] -mr-20 -mt-20 pointer-events-none group-hover:scale-110 transition-transform duration-700"></div>
+
+                     <div className="relative z-10 flex justify-between items-start mb-8">
+                        <div className="bg-black/10 p-4 rounded-2xl w-fit backdrop-blur-sm border border-black/5">
+                           <Zap size={32} className="text-black" />
+                        </div>
+                        <div className="hidden sm:block bg-black/10 px-4 py-2 rounded-full backdrop-blur-sm border border-black/5">
+                           <span className="text-xs font-bold uppercase tracking-widest text-black/70">Focus Mode</span>
+                        </div>
                      </div>
-                     <div className="relative z-10">
-                        <h3 className="text-4xl font-bold mb-4 leading-tight">24/7 Kopf bei der Sache.</h3>
+                     
+                     <div className="relative z-10 mt-auto">
+                        <h3 className="text-4xl md:text-5xl font-bold mb-6 leading-[0.95] tracking-tight text-black">
+                            24/7<br/>
+                            Kopf bei<br/>
+                            der Sache.
+                        </h3>
+                        
+                        <div className="space-y-3 border-t border-black/10 pt-6 mt-6">
+                            <div className="flex items-center gap-3">
+                                <div className="w-6 h-6 rounded-full bg-black/10 flex items-center justify-center">
+                                    <Check size={14} className="text-black" />
+                                </div>
+                                <span className="font-semibold text-black/80">Mitdenken statt abarbeiten</span>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                 <div className="w-6 h-6 rounded-full bg-black/10 flex items-center justify-center">
+                                    <Check size={14} className="text-black" />
+                                </div>
+                                <span className="font-semibold text-black/80">Proaktive Mängelmeldung</span>
+                            </div>
+                        </div>
                      </div>
-                     <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <ArrowRight size={32} />
+
+                     <div className="absolute bottom-8 right-8 bg-black text-white p-4 rounded-full opacity-0 translate-y-4 translate-x-4 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-300 shadow-xl">
+                        <ArrowRight size={24} />
                      </div>
                 </div>
+
                 <div className="md:col-span-2 bg-[#111]/80 backdrop-blur-sm border border-white/5 rounded-3xl p-8 hover:bg-[#1a1a1a] transition-colors group">
                     <div className="flex items-center gap-4 mb-6">
                         <Anchor className="text-gray-600 group-hover:text-accent transition-colors" size={32} />
@@ -644,7 +544,9 @@ const ProjectShowcase = () => {
                             <span className="h-[1px] w-8 bg-accent"></span>
                             <span className="text-accent font-bold uppercase tracking-widest text-sm">Einsatzbericht</span>
                         </div>
-                        <h2 className="text-5xl md:text-6xl font-bold text-white leading-tight">Tatort<br /> Hamburg.</h2>
+                        <RevealText>
+                            <h2 className="text-5xl md:text-6xl font-bold text-white leading-tight">Tatort<br /> Hamburg.</h2>
+                        </RevealText>
                     </div>
                 </div>
 
@@ -658,7 +560,7 @@ const ProjectShowcase = () => {
                             transition={{ delay: idx * 0.1 }}
                             className="group relative h-[450px] rounded-xl overflow-hidden cursor-pointer border border-white/5"
                         >
-                            <img src={project.image} alt={project.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 filter grayscale group-hover:grayscale-0" />
+                            <img src={project.image} alt={project.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 filter grayscale group-hover:grayscale-0" loading="lazy" />
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90 group-hover:opacity-60 transition-opacity duration-500"></div>
                             <div className="absolute inset-0 p-6 flex flex-col justify-between">
                                 <div className="flex justify-between items-start">
@@ -708,7 +610,7 @@ const ContactTerminal = () => {
                         </div>
                         <div className="lg:col-span-2 bg-[#1a1a1a] relative overflow-hidden group">
                              <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
-                             <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-30 group-hover:scale-105 transition-transform duration-1000" alt="Hamburg Map Texture" />
+                             <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-30 group-hover:scale-105 transition-transform duration-1000" alt="Hamburg Map Texture" loading="lazy" />
                              <div className="absolute inset-0 flex flex-col justify-end p-10 bg-gradient-to-t from-black via-transparent to-transparent">
                                 <div className="border-l-4 border-accent pl-6">
                                     <h3 className="text-white text-2xl font-bold mb-2">Zentrale Hamburg</h3>
@@ -725,7 +627,7 @@ const ContactTerminal = () => {
 function App() {
   const [isWizardOpen, setIsWizardOpen] = useState(false);
   const [isEmergencyMode, setIsEmergencyMode] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  // Removed isLoading state completely for instant render
   
   // Smooth Scroll Hook (Lenis) - Optimized for performance
   useEffect(() => {
@@ -754,11 +656,10 @@ function App() {
     }
   }, []);
 
-  // IMPORTANT: Removed 'bg-[#020202]' to allow GlobalBackground to be visible
   return (
     <div className={`min-h-screen font-sans selection:bg-accent selection:text-black transition-colors duration-500 ${isEmergencyMode ? 'bg-red-950' : 'bg-transparent'}`}>
       
-      {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
+      {/* NO PRELOADER */}
       
       <GlobalBackground />
       <Navbar />
@@ -788,6 +689,9 @@ function App() {
 
       <Hero onOpenWizard={() => setIsWizardOpen(true)} />
       <IntroSection />
+      
+      <Marquee />
+
       <ServicesSection />
       <LeadGenQuiz />
       <ValuesSection />
