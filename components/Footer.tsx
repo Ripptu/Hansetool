@@ -22,88 +22,100 @@ const Clock: React.FC<{ timeZone: string; }> = ({ timeZone }) => {
 
 const LegalModal: React.FC<{ 
   isOpen: boolean; 
-  type: 'impressum' | 'privacy' | null; 
+  type: 'impressum' | 'privacy' | 'agb' | null; 
   onClose: () => void 
 }> = ({ isOpen, type, onClose }) => {
   if (!isOpen || !type) return null;
 
-  const content = type === 'impressum' ? (
-    <div className="space-y-6 text-gray-300">
-      <h3 className="text-xl font-bold text-white mb-4">Angaben gemäß § 5 TMG</h3>
-      <div>
-        <p className="font-bold text-white">Hansetool Hamburg</p>
-        <p>Musterstraße 1</p>
-        <p>20457 Hamburg</p>
-      </div>
+  const content = (() => {
+      switch(type) {
+          case 'impressum':
+            return (
+                <div className="space-y-6 text-gray-300">
+                  <h3 className="text-xl font-bold text-white mb-4">Impressum</h3>
+                  <div>
+                    <h4 className="font-bold text-white">Name und Anschrift:</h4>
+                    <p>Hansetool</p>
+                    <p>Hufnerstraße 55a</p>
+                    <p>22305 Hamburg</p>
+                  </div>
+            
+                  <div>
+                    <h4 className="font-bold text-white mt-4">Kontakt</h4>
+                    <p>Telefon: 0152-55905935</p>
+                    <p>E-Mail: info@hansetool.de</p>
+                    <p>Website: ww.hansetool.de</p>
+                  </div>
+            
+                  <div>
+                    <h4 className="font-bold text-white mt-4">Geschäftsführer</h4>
+                    <p>Giuseppe Vittorio Villani</p>
+                  </div>
+            
+                  <div>
+                    <h4 className="font-bold text-white mt-4">Inhaltlich Verantwortlicher gem. § 18 Abs. 2 MStV</h4>
+                    <p>Giuseppe Vittorio Villani (Kontakt s. o.)</p>
+                  </div>
+            
+                  <div>
+                    <h4 className="font-bold text-white mt-4">Haftungsausschluss</h4>
+                    <p className="text-sm">Alle Informationen und sonstigen Angaben auf dieser Website sind unverbindlich und unterliegen dem Vorbehalt der jederzeitigen Änderung. Jede Haftung für die Richtigkeit und Vollständigkeit der Informationen sind ausgeschlossen. Alle auf unseren Internetseiten veröffentlichten Informationen wurden nach bestem Wissen und Gewissen erstellt. Trotzdem gelten diese als unverbindlich und bilden keinerlei Rechtsansprüche insbesondere nicht für unmittelbare oder mittelbare Folgeschäden.</p>
+                  </div>
 
-      <div>
-        <h4 className="font-bold text-white mt-4">Kontakt</h4>
-        <p>Telefon: +49 (0) 40 123 456</p>
-        <p>E-Mail: info@hansetool.de</p>
-      </div>
+                  <div>
+                    <h4 className="font-bold text-white mt-4">Haftungsausschluss für externe Inhalte und Links</h4>
+                    <p className="text-sm">Unsere Website enthält Inhalte von Drittanbietern (z. B. eingebettete Tools oder Inhalte über iFrames) sowie Links zu externen Websites. Diese Inhalte und Links werden bereitgestellt, um Ihnen zusätzliche Informationen oder Funktionen anzubieten. Beim Zugriff auf solche Inhalte oder beim Anklicken externer Links verlassen Sie den Verantwortungsbereich unserer Website.</p>
+                    <p className="text-sm mt-2">Wir übernehmen keine Verantwortung für die Inhalte, die Verfügbarkeit oder die Datenschutzpraktiken externer Websites oder eingebundener Drittinhalte. Die Verantwortung für diese Inhalte liegt ausschließlich bei den jeweiligen Anbietern. Eine kontinuierliche inhaltliche Kontrolle der verlinkten Seiten oder eingebetteten Inhalte ist uns nicht möglich und nicht zumutbar. Zum Zeitpunkt der Einbindung oder Verlinkung wurden die Inhalte jedoch auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zu diesem Zeitpunkt nicht erkennbar.</p>
+                    <p className="text-sm mt-2">Wir machen uns die Inhalte externer Anbieter ausdrücklich nicht zu eigen. Sollten uns Rechtsverletzungen bekannt werden, werden wir die entsprechenden Inhalte oder Links umgehend entfernen.</p>
+                  </div>
 
-      <div>
-        <h4 className="font-bold text-white mt-4">Umsatzsteuer-ID</h4>
-        <p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:</p>
-        <p>DE 123 456 789</p>
-      </div>
+                  <div>
+                    <h4 className="font-bold text-white mt-4">Urheberschutz</h4>
+                    <p className="text-sm">Der gesamte Inhalt dieser Website ist urheberrechtlich geschützt. Weitergabe, Veränderung, gewerbliche Nutzung, Vervielfältigung, Übermittlung, Veränderung oder Verwendung auf anderen Webseiten, herunterladen von Daten, insbesondere von Fotos etc., ist untersagt.</p>
+                  </div>
+                </div>
+              );
+          case 'privacy':
+              return (
+                <div className="space-y-6 text-gray-300">
+                  <h3 className="text-xl font-bold text-white mb-4">Datenschutz</h3>
+                  
+                  <div>
+                    <p className="text-sm">ICH übermittle Ihre Daten grundsätzlich NICHT an Dritte. Eine Weitergabe erfolgt nur, sofern die Daten gerade zur Weitergabe bestimmt sind, Sie vorher ausdrücklich in die Übermittlung eingewilligt haben oder wir aufgrund gesetzlicher Vorschriften hierzu verpflichtet bzw. berechtigt sind.</p>
+                  </div>
 
-      <div>
-        <h4 className="font-bold text-white mt-4">Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h4>
-        <p>Max Mustermann</p>
-        <p>Musterstraße 1</p>
-        <p>20457 Hamburg</p>
-      </div>
+                  <div>
+                    <h4 className="font-bold text-white mt-4">Löschung Ihrer Daten</h4>
+                    <p className="text-sm">Wir verarbeiten Ihre Daten grundsätzlich nur solange, wie sie für die Zwecke, für die sie erhoben worden sind, erforderlich sind. Wir zeichnen nichts auf. Ihre Daten werden daher nicht gespeichert.</p>
+                  </div>
 
-      <div>
-        <h4 className="font-bold text-white mt-4">Streitschlichtung</h4>
-        <p className="text-sm">Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: https://ec.europa.eu/consumers/odr.<br/> Unsere E-Mail-Adresse finden Sie oben im Impressum.</p>
-        <p className="text-sm mt-2">Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
-      </div>
-    </div>
-  ) : (
-    <div className="space-y-6 text-gray-300">
-      <h3 className="text-xl font-bold text-white mb-4">Datenschutzerklärung</h3>
-      
-      <div>
-        <h4 className="font-bold text-white">1. Datenschutz auf einen Blick</h4>
-        <p className="mt-2 text-sm">
-          <strong>Allgemeine Hinweise:</strong> Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.
-        </p>
-      </div>
-
-      <div>
-        <h4 className="font-bold text-white mt-4">2. Allgemeine Hinweise und Pflichtinformationen</h4>
-        <p className="mt-2 text-sm">
-          <strong>Datenschutz:</strong> Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung.
-        </p>
-        <p className="mt-2 text-sm">
-          <strong>Hinweis zur verantwortlichen Stelle:</strong><br/>
-          Hansetool Hamburg<br/>
-          Musterstraße 1<br/>
-          20457 Hamburg<br/>
-          E-Mail: info@hansetool.de
-        </p>
-      </div>
-
-      <div>
-        <h4 className="font-bold text-white mt-4">3. Datenerfassung auf unserer Website</h4>
-        <p className="mt-2 text-sm">
-          <strong>Cookies:</strong> Die Internetseiten verwenden teilweise so genannte Cookies. Cookies richten auf Ihrem Rechner keinen Schaden an und enthalten keine Viren. Cookies dienen dazu, unser Angebot nutzerfreundlicher, effektiver und sicherer zu machen.
-        </p>
-        <p className="mt-2 text-sm">
-          <strong>Kontaktformular / Anfrage-Wizard:</strong> Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.
-        </p>
-      </div>
-      
-      <div>
-        <h4 className="font-bold text-white mt-4">4. Analyse-Tools und Tools von Drittanbietern</h4>
-        <p className="mt-2 text-sm">
-          Beim Besuch unserer Website kann Ihr Surf-Verhalten statistisch ausgewertet werden. Das geschieht vor allem mit Cookies und mit sogenannten Analyseprogrammen. Die Analyse Ihres Surf-Verhaltens erfolgt in der Regel anonym.
-        </p>
-      </div>
-    </div>
-  );
+                  <div>
+                    <h4 className="font-bold text-white mt-4">Ihre Rechte als betroffenen Person</h4>
+                    <p className="text-sm">Sie haben gemäß Art. 15 DSGVO das Recht auf Auskunft seitens des Verantwortlichen über die Sie betreffenden personenbezogenen Daten sowie auf Berichtigung unrichtiger Daten gemäß Art. 16 DSGVO oder auf Löschung, sofern einer der in Art. 17 DSGVO genannten Gründe vorliegt, z.B. wenn die Daten für die verfolgten Zwecke nicht mehr benötigt werden. Sie haben zudem das Recht auf Einschränkung der Verarbeitung, wenn eine der in Art. 18 DSGVO genannten Voraussetzungen vorliegt und in den Fällen des Art. 20 DSGVO das Recht auf Datenübertragbarkeit.</p>
+                    <p className="text-sm mt-2">In Fällen, in denen wir Ihre personenbezogenen Daten auf der Rechtsgrundlage von Art. 6 Abs. 1 S. 1 lit. f DSGVO verarbeiten, haben Sie zudem das Recht, aus Gründen, die sich aus Ihrer besonderen Situation ergeben, jederzeit Widerspruch einzulegen. Wir verarbeiten die personenbezogenen Daten dann nicht mehr, es sei denn, es liegen nachweisbar zwingende schutzwürdige Gründe für die Verarbeitung vor, die gegenüber Ihren Interessen, Rechten und Freiheiten überwiegen, oder die Verarbeitung dient der Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen.</p>
+                    <p className="text-sm mt-2">Sie haben zudem das Recht hat auf Beschwerde bei einer Aufsichtsbehörde, wenn Sie der Ansicht sind, dass die Verarbeitung der Sie betreffenden Daten gegen datenschutzrechtliche Bestimmungen verstößt. Das Beschwerderecht kann insbesondere bei einer Aufsichtsbehörde in dem Mitgliedstaat des Aufenthaltsorts der betroffenen Person oder des Orts des mutmaßlichen Verstoßes geltend gemacht werden.</p>
+                  </div>
+                  
+                  <div>
+                     <p className="text-sm mt-4">Quelle: <a href="https://www.datenschutz-notizen.de/videokonferenzen-mit-zoom-5327696/" className="underline hover:text-white">https://www.datenschutz-notizen.de/videokonferenzen-mit-zoom-5327696/</a></p>
+                  </div>
+                </div>
+              );
+          case 'agb':
+            return (
+                <div className="space-y-6 text-gray-300">
+                    <h3 className="text-xl font-bold text-white mb-4">Allgemeine Geschäftsbedingungen</h3>
+                    <div>
+                        <h4 className="font-bold text-white">Allgemeines</h4>
+                        <p className="text-sm">Für die Ausführung und Abwicklung von Aufträgen gelten unsere Allgemeinen Geschäftsbedingungen, die Ihnen auf Wunsch zugestellt werden.</p>
+                        <p className="text-sm mt-2">Soweit unser Leistungsspektrum auch Arbeiten aus anderen Gewerken wie zum Beispiel Elektro oder Fliesen umfasst, werden diese Arbeiten durch von uns beauftragte Meisterbetriebe ausgeführt.</p>
+                    </div>
+                </div>
+            );
+          default:
+              return null;
+      }
+  })();
 
   return (
     <AnimatePresence>
@@ -122,8 +134,8 @@ const LegalModal: React.FC<{
           className="bg-[#111] border border-white/10 w-full max-w-2xl max-h-[80vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden"
         >
           <div className="flex justify-between items-center p-6 border-b border-white/5 bg-[#151515]">
-            <h2 className="text-2xl font-bold text-white">
-              {type === 'impressum' ? 'Impressum' : 'Datenschutz'}
+            <h2 className="text-2xl font-bold text-white capitalize">
+              {type === 'agb' ? 'AGB' : type}
             </h2>
             <button 
               onClick={onClose}
@@ -143,12 +155,12 @@ const LegalModal: React.FC<{
 };
 
 export const Footer: React.FC = () => {
-  const [legalModal, setLegalModal] = useState<{ isOpen: boolean; type: 'impressum' | 'privacy' | null }>({
+  const [legalModal, setLegalModal] = useState<{ isOpen: boolean; type: 'impressum' | 'privacy' | 'agb' | null }>({
     isOpen: false,
     type: null
   });
 
-  const openLegal = (type: 'impressum' | 'privacy') => {
+  const openLegal = (type: 'impressum' | 'privacy' | 'agb') => {
     setLegalModal({ isOpen: true, type });
   };
 
@@ -160,7 +172,6 @@ export const Footer: React.FC = () => {
       { name: 'Reinigung', href: '#services' },
       { name: 'Handwerk', href: '#services' },
       { name: 'Hausmeister', href: '#services' },
-      { name: 'Notdienst', href: '#contact' },
   ];
 
   return (
@@ -239,7 +250,7 @@ export const Footer: React.FC = () => {
                         </div>
                         <div>
                             <span className="block text-xs text-gray-500 uppercase tracking-wide">Anrufen</span>
-                            <span className="text-lg font-medium">+49 (0) 40 123 456</span>
+                            <span className="text-lg font-medium">0152-55905935</span>
                         </div>
                     </a>
                 </div>
@@ -250,7 +261,7 @@ export const Footer: React.FC = () => {
               <div className="flex gap-8 mb-4 md:mb-0">
                   <button onClick={() => openLegal('impressum')} className="hover:text-white transition-colors">Impressum</button>
                   <button onClick={() => openLegal('privacy')} className="hover:text-white transition-colors">Datenschutz</button>
-                  <a href="#" className="hover:text-white transition-colors">AGB</a>
+                  <button onClick={() => openLegal('agb')} className="hover:text-white transition-colors">AGB</button>
               </div>
               <p>© 2025 Hansetool Hamburg. Built for Makers.</p>
           </div>
