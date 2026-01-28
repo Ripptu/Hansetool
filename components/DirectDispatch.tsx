@@ -3,7 +3,7 @@ import { Camera } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export const DirectDispatch = () => {
-  const WHATSAPP_NUMBER = "4915255905935";
+  const WHATSAPP_NUMBER = "4917647093890";
   const message = "Moin, hier ist ein Foto vom Schaden / der Situation:";
   const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 

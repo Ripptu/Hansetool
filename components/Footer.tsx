@@ -42,7 +42,7 @@ const LegalModal: React.FC<{
             
                   <div>
                     <h4 className="font-bold text-white mt-4">Kontakt</h4>
-                    <p>Telefon: 0152-55905935</p>
+                    <p>Telefon: 0176-47093890</p>
                     <p>E-Mail: info@hansetool.de</p>
                     <p>Website: ww.hansetool.de</p>
                   </div>
@@ -244,13 +244,13 @@ export const Footer: React.FC = () => {
                         </div>
                     </a>
                     
-                    <a href="tel:+4915255905935" className="flex items-center gap-4 text-white group cursor-pointer">
+                    <a href="tel:+4917647093890" className="flex items-center gap-4 text-white group cursor-pointer">
                         <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-accent group-hover:text-black transition-colors">
                             <Phone size={18} />
                         </div>
                         <div>
                             <span className="block text-xs text-gray-500 uppercase tracking-wide">Anrufen</span>
-                            <span className="text-lg font-medium">0152-55905935</span>
+                            <span className="text-lg font-medium">0176-47093890</span>
                         </div>
                     </a>
                 </div>

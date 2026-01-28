@@ -29,7 +29,7 @@ export const LeadGenQuiz = () => {
 
   const sendWhatsApp = () => {
       const text = getSummary();
-      window.open(`https://wa.me/4915255905935?text=${encodeURIComponent(text)}`, '_blank');
+      window.open(`https://wa.me/4917647093890?text=${encodeURIComponent(text)}`, '_blank');
   };
 
   const sendMail = () => {

@@ -15,7 +15,7 @@ export const InquiryWizard: React.FC<InquiryWizardProps> = ({ isOpen, onClose })
     timing: ''
   });
 
-  const WHATSAPP_NUMBER = "4915255905935";
+  const WHATSAPP_NUMBER = "4917647093890";
 
   const handleNext = () => {
     if (step < 3) setStep(step + 1);

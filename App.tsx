@@ -129,7 +129,7 @@ const Hero = ({ onOpenWizard }: { onOpenWizard: () => void }) => {
                 </div>
             </button>
             <a 
-                href="https://wa.me/4915255905935"
+                href="https://wa.me/4917647093890"
                 className="flex items-center gap-3 bg-[#1a1a1a] text-white border border-white/10 px-8 py-3.5 rounded-full font-bold hover:bg-[#222] transition-all shadow-md hover:-translate-y-1"
             >
                 <div className="bg-emerald-500/10 p-1.5 rounded-full">
@@ -595,7 +595,7 @@ const ContactTerminal = () => {
                             <div className="absolute left-0 top-10 h-px w-20 bg-accent"></div>
                             <h2 className="text-5xl md:text-6xl font-bold text-white mb-8 leading-none">Genug gesehen?<br /><span className="text-accent">Starten wir.</span></h2>
                             <div className="flex flex-col sm:flex-row gap-6">
-                                <a href="tel:+4940123456" className="group relative flex items-center justify-between bg-accent hover:bg-accent/90 text-black px-8 py-6 rounded-xl transition-all duration-300 hover:scale-[1.02] min-w-[240px] shadow-lg">
+                                <a href="tel:+4917647093890" className="group relative flex items-center justify-between bg-accent hover:bg-accent/90 text-black px-8 py-6 rounded-xl transition-all duration-300 hover:scale-[1.02] min-w-[240px] shadow-lg">
                                     <div className="flex flex-col items-start">
                                         <span className="text-xs font-bold uppercase tracking-wider opacity-70 mb-1">Dringend?</span>
                                         <span className="text-2xl font-bold">Anrufen</span>
@@ -695,8 +695,8 @@ function App() {
                 className="fixed inset-0 z-[100] bg-red-900/90 backdrop-blur-xl flex flex-col items-center justify-center text-center p-6"
             >
                 <h2 className="text-5xl md:text-7xl font-bold text-white mb-4">NOTFALL?</h2>
-                <a href="tel:+4915255905935" className="bg-white text-red-600 px-10 py-6 rounded-full text-3xl font-bold hover:scale-105 transition-transform shadow-2xl mb-6">
-                    01525 5905935
+                <a href="tel:+4917647093890" className="bg-white text-red-600 px-10 py-6 rounded-full text-3xl font-bold hover:scale-105 transition-transform shadow-2xl mb-6">
+                    0176 47093890
                 </a>
                 <button 
                     onClick={() => setIsEmergencyMode(false)}
