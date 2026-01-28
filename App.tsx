@@ -268,7 +268,8 @@ const ServicesSection = () => {
                             <div className={`absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 bg-gradient-to-br ${service.theme.gradient}`}></div>
 
                             <div className="relative z-10 flex flex-col h-full justify-between min-h-[380px]">
-                                <div className="flex justify-between items-start mb-12">
+                                {/* INCREASED MARGIN BOTTOM HERE TO PREVENT OVERLAP */}
+                                <div className="flex justify-between items-start mb-20">
                                     <div className={`p-3 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 group-hover:scale-110 transition-transform duration-500`}>
                                         <IconComponent size={28} className={service.theme.primary} strokeWidth={1.5} />
                                     </div>

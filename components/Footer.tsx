@@ -44,7 +44,7 @@ const LegalModal: React.FC<{
                     <h4 className="font-bold text-white mt-4">Kontakt</h4>
                     <p>Telefon: 0176-47093890</p>
                     <p>E-Mail: info@hansetool.de</p>
-                    <p>Website: ww.hansetool.de</p>
+                    <p>Website: www.hansetool.de</p>
                   </div>
             
                   <div>
