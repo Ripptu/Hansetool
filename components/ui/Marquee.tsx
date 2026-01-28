@@ -8,7 +8,7 @@ export const Marquee = () => {
   ];
 
   return (
-    <div className="py-12 bg-accent/80 backdrop-blur-sm text-black overflow-hidden relative z-20 -rotate-1 transform origin-left scale-105 border-y-4 border-black/10">
+    <div className="py-12 bg-accent/30 backdrop-blur-md text-black overflow-hidden relative z-20 -rotate-1 transform origin-left scale-105 border-y-4 border-black/10">
       <motion.div
         className="flex whitespace-nowrap gap-12"
         animate={{ x: ["0%", "-50%"] }}

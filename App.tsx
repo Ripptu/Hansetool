@@ -269,7 +269,7 @@ const ServicesSection = () => {
 
                             <div className="relative z-10 flex flex-col h-full justify-between min-h-[380px]">
                                 {/* INCREASED MARGIN BOTTOM HERE TO PREVENT OVERLAP */}
-                                <div className="flex justify-between items-start mb-20">
+                                <div className="flex justify-between items-start mb-32">
                                     <div className={`p-3 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 group-hover:scale-110 transition-transform duration-500`}>
                                         <IconComponent size={28} className={service.theme.primary} strokeWidth={1.5} />
                                     </div>
