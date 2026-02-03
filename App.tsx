@@ -473,9 +473,9 @@ const ValuesSection = () => {
                         </div>
                      </div>
 
-                     <div className="absolute bottom-8 right-8 bg-black text-white p-4 rounded-full opacity-0 translate-y-4 translate-x-4 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-300 shadow-xl">
+                     <a href="#contact" className="absolute bottom-8 right-8 bg-black text-white p-4 rounded-full opacity-0 translate-y-4 translate-x-4 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-300 shadow-xl z-20 hover:scale-110">
                         <ArrowRight size={24} />
-                     </div>
+                     </a>
                 </div>
 
                 <div className="md:col-span-2 bg-[#111]/80 backdrop-blur-sm border border-white/5 rounded-3xl p-8 hover:bg-[#1a1a1a] transition-colors group">

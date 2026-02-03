@@ -16,7 +16,7 @@ export const SERVICES = [
     id: '1',
     title: 'Glanzleistung & Hygiene',
     description: 'Vom staubigen Lagerboden bis zu glasigen Fenstern. Wir putzen nicht nur, wir werten auf. Mit modernsten Techniken und Blick fürs Detail.',
-    items: ['Industriereinigung', 'Büroreinigung', 'Glas- & Fassade', 'Teppich-Tiefenreinigung'],
+    items: ['Büroreinigung', 'Glas- & Fassade', 'Teppich-Tiefenreinigung'],
     image: 'https://cdn-icons-png.flaticon.com/128/994/994928.png',
     theme: {
         primary: 'text-cyan-400',
@@ -30,7 +30,7 @@ export const SERVICES = [
     id: '2',
     title: 'Technik & Instandhaltung',
     description: 'Hausmeisterservice 2.0. Wenn es tropft, klemmt oder dunkel bleibt, sind wir schon unterwegs. Präventive Wartung statt teurer Reparaturen.',
-    items: ['Wartung & Reparatur', 'Leuchtmittel-Service', 'Möbelmontage', 'Schließanlagen'],
+    items: ['Wartung & Reparatur', 'Leuchtmittel-Service', 'Möbelmontage', 'Sanitärmontage'],
     image: 'https://cdn-icons-png.flaticon.com/128/2276/2276313.png',
     theme: {
         primary: 'text-amber-400',
@@ -44,7 +44,7 @@ export const SERVICES = [
     id: '3',
     title: 'Logistik & Anpacken',
     description: 'Wir sind uns für nichts zu schade. Interne Umzüge, Entrümpelung von Kellern oder der Transport von A nach B. Schnell, stark, sauber.',
-    items: ['Büroumzüge', 'Entsorgung', 'Transporte', 'Lagerlogistik'],
+    items: ['Büroumzüge', 'Entsorgung', 'Transporte'],
     image: 'https://cdn-icons-png.flaticon.com/128/870/870130.png',
     theme: {
         primary: 'text-violet-400',
@@ -58,7 +58,7 @@ export const SERVICES = [
     id: '4',
     title: 'Aussenanlagen & Grün',
     description: 'Der erste Eindruck zählt. Wir sorgen für geschnittene Hecken, laubfreie Wege und einen repräsentativen Eingangsbereich.',
-    items: ['Grünpflege', 'Winterdienst', 'Parkplatzreinigung', 'Graffitientfernung'],
+    items: ['Grünpflege', 'Parkplatzreinigung', 'Graffitientfernung'],
     image: 'https://cdn-icons-png.flaticon.com/128/489/489969.png',
     theme: {
         primary: 'text-emerald-400',

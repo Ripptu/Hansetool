@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 interface Testimonial {
   text: string;
-  image: string;
+  image: string; // Kept in interface for compatibility with data structure, but not rendered
   name: string;
   role: string;
 }
@@ -84,7 +84,7 @@ const TestimonialsColumn = (props: {
       >
         {[...new Array(2)].map((_, index) => (
           <React.Fragment key={index}>
-            {props.testimonials.map(({ text, image, name, role }, i) => (
+            {props.testimonials.map(({ text, name, role }, i) => (
               <li 
                 key={`${index}-${i}`}
                 className="p-8 rounded-2xl border border-gray-border bg-dark-lighter shadow-lg max-w-xs w-full transition-all duration-300 hover:border-accent/50 group" 
@@ -93,15 +93,7 @@ const TestimonialsColumn = (props: {
                   <p className="text-gray-300 leading-relaxed font-normal m-0 text-sm italic">
                     "{text}"
                   </p>
-                  <footer className="flex items-center gap-4 mt-6">
-                    <img
-                      width={40}
-                      height={40}
-                      src={image} // Images already have sizing params from the constant above
-                      alt={`Avatar of ${name}`}
-                      loading="lazy"
-                      className="h-10 w-10 rounded-full object-cover ring-2 ring-gray-border group-hover:ring-accent transition-all duration-300 bg-gray-800"
-                    />
+                  <footer className="mt-6 pt-4 border-t border-white/5">
                     <div className="flex flex-col">
                       <cite className="font-bold not-italic text-white text-sm">
                         {name}
