@@ -278,7 +278,7 @@ const ServicesSection = () => {
 
                                 <div className="relative">
                                     {/* 3D Icon Floating */}
-                                    <div className="absolute -right-4 bottom-24 w-28 h-28 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-50 transition-all duration-500 pointer-events-none z-0">
+                                    <div className="absolute -right-2 bottom-40 w-20 h-20 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-50 transition-all duration-500 pointer-events-none z-0">
                                         <img src={service.image} alt={service.title} className="w-full h-full object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)]" />
                                     </div>
 
