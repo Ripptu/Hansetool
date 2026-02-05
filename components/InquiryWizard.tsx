@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ArrowRight, Sparkles, Wrench, AlertTriangle, Check } from 'lucide-react';
+import { X, ArrowRight, Sparkles, Wrench, AlertTriangle, Check, Factory, Briefcase, Home, Building2 } from 'lucide-react';
 
 interface InquiryWizardProps {
   isOpen: boolean;
@@ -11,7 +11,7 @@ export const InquiryWizard: React.FC<InquiryWizardProps> = ({ isOpen, onClose })
   const [step, setStep] = useState(1);
   const [data, setData] = useState({
     category: '',
-    size: 50,
+    type: '',
     timing: ''
   });
 
@@ -23,12 +23,15 @@ export const InquiryWizard: React.FC<InquiryWizardProps> = ({ isOpen, onClose })
   };
 
   const handleSubmit = () => {
-    const text = `Moin Hansetool, ich interessiere mich für: ${data.category}. Fläche ca. ${data.size}qm. Starttermin: ${data.timing}. Bitte um Rückmeldung!`;
+    const text = `Moin Hansetool, ich interessiere mich für: ${data.category}. Objektart: ${data.type}. Starttermin: ${data.timing}. Bitte um Rückmeldung!`;
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
     window.open(url, '_blank');
     onClose();
     // Reset after delay
-    setTimeout(() => setStep(1), 500);
+    setTimeout(() => {
+        setStep(1);
+        setData({ category: '', type: '', timing: '' });
+    }, 500);
   };
 
   if (!isOpen) return null;
@@ -96,29 +99,27 @@ export const InquiryWizard: React.FC<InquiryWizardProps> = ({ isOpen, onClose })
                 exit={{ opacity: 0, y: -20 }}
                 className="space-y-8"
               >
-                <h2 className="text-3xl md:text-5xl font-bold text-white">Wie groß ist die Fläche?</h2>
-                <div className="py-12">
-                   <div className="text-accent text-6xl font-bold mb-4 font-mono">{data.size} <span className="text-2xl text-white/50">m²</span></div>
-                   <input 
-                      type="range" 
-                      min="10" 
-                      max="2000" 
-                      step="10"
-                      value={data.size}
-                      onChange={(e) => setData({ ...data, size: parseInt(e.target.value) })}
-                      className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-accent"
-                   />
-                   <div className="flex justify-between text-gray-500 mt-2 text-sm">
-                      <span>Kleine Fläche</span>
-                      <span>Großprojekt</span>
-                   </div>
+                <h2 className="text-3xl md:text-5xl font-bold text-white mb-8">Welches Objekt?</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {[
+                        { id: 'Gewerbe / Industrie', icon: Factory, label: 'Gewerbe / Industrie' },
+                        { id: 'Büro / Praxis', icon: Briefcase, label: 'Büro / Praxis' },
+                        { id: 'Privathaushalt', icon: Home, label: 'Privathaushalt' },
+                        { id: 'Hausverwaltung', icon: Building2, label: 'Hausverwaltung' },
+                    ].map((item) => (
+                        <button
+                            key={item.id}
+                            onClick={() => {
+                                setData({ ...data, type: item.id });
+                                handleNext();
+                            }}
+                            className="group p-6 rounded-2xl border border-white/10 hover:border-accent hover:bg-white/5 transition-all text-left flex items-center gap-4"
+                        >
+                            <item.icon className="w-8 h-8 text-accent group-hover:text-white transition-colors" />
+                            <span className="text-xl font-bold text-white">{item.label}</span>
+                        </button>
+                    ))}
                 </div>
-                <button 
-                  onClick={handleNext}
-                  className="bg-white text-black px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-200 transition-colors flex items-center gap-2"
-                >
-                  Weiter <ArrowRight />
-                </button>
               </motion.div>
             )}
 
@@ -137,7 +138,6 @@ export const InquiryWizard: React.FC<InquiryWizardProps> = ({ isOpen, onClose })
                       key={time}
                       onClick={() => {
                          setData({ ...data, timing: time });
-                         // Small delay to set state before submit logic triggers
                          setTimeout(() => handleSubmit(), 100); 
                       }}
                       className="p-6 rounded-2xl border border-white/10 hover:border-accent hover:bg-white/5 transition-all text-left flex items-center justify-between group"
